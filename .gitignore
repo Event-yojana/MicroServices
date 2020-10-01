@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/EventYojana/EventYojana.API/EventYojana.API.BusinessLayer/obj
+/EventYojana/EventYojana.API/EventYojana.API.Customer/bin/Debug/netcoreapp3.0
+/EventYojana/EventYojana.API/EventYojana.API.Customer/obj
+/EventYojana/EventYojana.API/EventYojana.API.DataAccess/obj
+/EventYojana/EventYojana.API/EventYojana.API.Vendor/bin/Debug/netcoreapp3.0
+/EventYojana/EventYojana.API/EventYojana.API.Vendor/obj
+/EventYojana/EventYojana.API.DataAccess/obj
+/EventYojana/EventYojana.Infrastructure/EventYojana.Infrastructure.Core/obj
+/EventYojana/EventYojana.Infrastructure/EventYojana.Infrastructure.Repository/obj

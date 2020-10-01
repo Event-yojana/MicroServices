@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="DataEntities\Customer\" />
+    <Folder Include="DataEntities\Vendor\" />
+    <Folder Include="Interfaces\Customer\" />
+    <Folder Include="Interfaces\Vendor\" />
+    <Folder Include="Repositories\Customer\" />
+    <Folder Include="Repositories\Vendor\" />
+  </ItemGroup>
+
+</Project>
