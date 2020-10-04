@@ -13,3 +13,8 @@
 /EventYojana/EventYojana.Infrastructure/EventYojana.Infrastructure.Repository/obj
 /.vs/MicroServices/v16
 /.vs
+/EventYojana/EventYojana.API/EventYojana.API.DataAccess/bin/Debug/netstandard2.0
+/EventYojana/EventYojana.API/EventYojana.API.BusinessLayer/bin/Debug/netstandard2.0
+/EventYojana/EventYojana.Infrastructure/EventYojana.Infrastructure.Core/bin/Debug/netstandard2.0
+/EventYojana/EventYojana.Infrastructure/EventYojana.Infrastructure.Repository/bin/Debug/netstandard2.0
+/EventYojana/.vs/EventYojana

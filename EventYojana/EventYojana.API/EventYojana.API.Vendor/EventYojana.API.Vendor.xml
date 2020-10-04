@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EventYojana.API.Vendor</name>
+    </assembly>
+    <members>
+        <member name="T:EventYojana.API.Vendor.Controllers.LoginController">
+            <summary>
+            Login Vendor
+            </summary>
+        </member>
+        <member name="M:EventYojana.API.Vendor.Controllers.LoginController.AuthenticateUser">
+            <summary>
+            Authenticate User
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
