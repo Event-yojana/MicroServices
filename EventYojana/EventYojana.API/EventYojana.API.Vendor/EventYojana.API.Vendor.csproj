@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\EventYojana.Infrastructure\EventYojana.Infrastructure.Core\EventYojana.Infrastructure.Core.csproj" />
+    <ProjectReference Include="..\EventYojana.API.BusinessLayer\EventYojana.API.BusinessLayer.csproj" />
   </ItemGroup>
 
 </Project>
