@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Common;
+﻿using System.Threading.Tasks;
+using EventYojana.API.Vendor.Constants;
 using EventYojana.Infrastructure.Core.Attributes;
 using EventYojana.Infrastructure.Core.ExceptionHandling;
+using EventYojana.Infrastructure.Core.Models;
+using EventYojana.Infrastructure.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -19,9 +17,10 @@ namespace EventYojana.API.Vendor.Controllers
     [ApiController]
     public class LoginController : BaseController
     {
-        public LoginController()
+        private readonly IUserService _userService;
+        public LoginController(IUserService userService)
         {
-
+            _userService = userService;
         }
         /// <summary>
         /// Authenticate User
@@ -30,8 +29,9 @@ namespace EventYojana.API.Vendor.Controllers
         [Route("Authenticate")]
         [HttpPost]
         [AllowAnonymous]
-        [SwaggerOperation(Tags = new[] { "" }, OperationId = "" )]
-        public async Task<IActionResult> AuthenticateUser([ModelBinder(typeof(FromEncryptedBodyAttribute))] AuthenticateRequestModel authenticateRequestModel)
+        [SwaggerOperation(Tags = new[] { SwaggerTags.Vendor }, OperationId = nameof(SwaggerOperation.VendorAuthenticate) )]
+        //public async Task<IActionResult> AuthenticateUser([ModelBinder(typeof(FromEncryptedBodyAttribute))] AuthenticateRequest authenticateRequestModel)
+        public async Task<IActionResult> AuthenticateUser(AuthenticateRequest authenticateRequestModel)
         {
             ValidationException validationException = new ValidationException();
             validationException.Add(nameof(authenticateRequestModel.UserName), authenticateRequestModel.UserName, ValidationReason.Required);
@@ -41,7 +41,16 @@ namespace EventYojana.API.Vendor.Controllers
                 throw validationException;
             }
 
-            return Ok();
+            var result = _userService.Authenticate(authenticateRequestModel);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var users = _userService.GetUserDetails();
+            return Ok(users);
         }
     }
 }

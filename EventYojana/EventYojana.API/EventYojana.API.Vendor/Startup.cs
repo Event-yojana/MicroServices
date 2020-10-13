@@ -10,6 +10,8 @@ using EventYojana.Infrastructure.Core.Common;
 using EventYojana.Infrastructure.Core.Filters;
 using EventYojana.Infrastructure.Core.Filters.SwaggerFilters;
 using EventYojana.Infrastructure.Core.Middlewares;
+using EventYojana.Infrastructure.Core.Services;
+using EventYojana.Infrastructure.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -72,13 +74,14 @@ namespace EventYojana.API.Vendor
             services.AddControllers();
 
             //Call service injection
-            IocConfig.ConfigureServices(ref services);
+            IocConfig.ConfigureServices(ref services, Configuration);
+            services.Configure<AppKeyConfig>(Configuration.GetSection("AppKeyConfig"));
 
             services.AddHttpContextAccessor();
 
             //Register swagger
             services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Event Yojana Vendor Srvice", Version = "v1" });
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Event Yojana Vendor Service", Version = "v1" });
                 
                 const string idSecurity = "AppKey";
                 c.AddSecurityDefinition(idSecurity, new OpenApiSecurityScheme { 
@@ -108,7 +111,8 @@ namespace EventYojana.API.Vendor
                 c.OperationFilter<FileOperationFilter>();
                 c.EnableAnnotations();
             });
-            services.Configure<AppKeyConfig>(Configuration.GetSection("AppKeyConfig"));
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -120,6 +124,7 @@ namespace EventYojana.API.Vendor
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseMiddleware<JwtMiddleware>();
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.UseSwagger(c => {

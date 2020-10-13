@@ -9,7 +9,7 @@
             Login Vendor
             </summary>
         </member>
-        <member name="M:EventYojana.API.Vendor.Controllers.LoginController.AuthenticateUser">
+        <member name="M:EventYojana.API.Vendor.Controllers.LoginController.AuthenticateUser(EventYojana.Infrastructure.Core.Models.AuthenticateRequest)">
             <summary>
             Authenticate User
             </summary>

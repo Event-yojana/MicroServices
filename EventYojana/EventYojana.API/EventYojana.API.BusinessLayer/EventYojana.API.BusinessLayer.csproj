@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="BusinessEntities\RequestModels\Common\" />
     <Folder Include="BusinessEntities\RequestModels\Customer\" />
     <Folder Include="BusinessEntities\RequestModels\Vendor\" />
     <Folder Include="BusinessEntities\ViewModel\Customer\" />

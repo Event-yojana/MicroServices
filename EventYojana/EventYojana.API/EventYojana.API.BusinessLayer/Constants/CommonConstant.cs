@@ -6,11 +6,5 @@ namespace EventYojana.API.BusinessLayer.Constants
 {
     public class CommonConstant
     {
-        public enum AuthenticateEnum
-        {
-            Admin,
-            Vendor,
-            Customer
-        }
     }
 }

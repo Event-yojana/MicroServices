@@ -9,4 +9,5 @@ namespace EventYojana.Infrastructure.Core.Common
         internal const string PayloadHeaderName = "Payload";
         internal const string EncryptionKey = "";
     }
+
 }
