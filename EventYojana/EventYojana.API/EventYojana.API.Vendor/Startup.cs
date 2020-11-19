@@ -10,8 +10,6 @@ using EventYojana.Infrastructure.Core.Common;
 using EventYojana.Infrastructure.Core.Filters;
 using EventYojana.Infrastructure.Core.Filters.SwaggerFilters;
 using EventYojana.Infrastructure.Core.Middlewares;
-using EventYojana.Infrastructure.Core.Services;
-using EventYojana.Infrastructure.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -74,7 +72,11 @@ namespace EventYojana.API.Vendor
             services.AddControllers();
 
             //Call service injection
-            IocConfig.ConfigureServices(ref services, Configuration);
+            EventYojana.Infrastructure.Core.IocConfig.ConfigureServices(ref services, Configuration);
+            EventYojana.Infrastructure.Repository.IocConfig.ConfigureServices(ref services);
+            EventYojana.API.DataAccess.IocConfig.ConfigureServices(ref services);
+            EventYojana.API.BusinessLayer.IocConfig.ConfigureServices(ref services);
+
             services.Configure<AppKeyConfig>(Configuration.GetSection("AppKeyConfig"));
 
             services.AddHttpContextAccessor();

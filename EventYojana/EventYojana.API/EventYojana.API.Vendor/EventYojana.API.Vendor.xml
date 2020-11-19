@@ -9,10 +9,23 @@
             Login Vendor
             </summary>
         </member>
+        <member name="M:EventYojana.API.Vendor.Controllers.LoginController.#ctor(EventYojana.API.BusinessLayer.Interfaces.Commons.IUserService)">
+            <summary>
+            Controller 
+            </summary>
+            <param name="userService"></param>
+        </member>
         <member name="M:EventYojana.API.Vendor.Controllers.LoginController.AuthenticateUser(EventYojana.Infrastructure.Core.Models.AuthenticateRequest)">
             <summary>
             Authenticate User
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EventYojana.API.Vendor.Controllers.LoginController.RegisterUser(EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Vendor.VendorDetailsRequestModel)">
+            <summary>
+            Register branches of vendor.
+            </summary>
+            <param name="vendorDetailsRequestModel"></param>
             <returns></returns>
         </member>
     </members>

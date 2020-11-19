@@ -8,5 +8,6 @@ namespace EventYojana.API.Vendor.Constants
     public class SwaggerOperation
     {
         public const string VendorAuthenticate = "Authenticate Vendor";
+        public const string RegisterVendor = "Register Vendor";
     }
 }

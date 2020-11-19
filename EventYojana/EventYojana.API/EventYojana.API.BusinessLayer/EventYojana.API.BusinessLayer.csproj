@@ -5,15 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BusinessEntities\RequestModels\Common\" />
     <Folder Include="BusinessEntities\RequestModels\Customer\" />
-    <Folder Include="BusinessEntities\RequestModels\Vendor\" />
     <Folder Include="BusinessEntities\ViewModel\Customer\" />
     <Folder Include="BusinessEntities\ViewModel\Vendor\" />
     <Folder Include="Interfaces\Customer\" />
     <Folder Include="Interfaces\Vendor\" />
     <Folder Include="Managers\Customer\" />
     <Folder Include="Managers\Vendor\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\EventYojana.Infrastructure\EventYojana.Infrastructure.Core\EventYojana.Infrastructure.Core.csproj" />
+    <ProjectReference Include="..\EventYojana.API.DataAccess\EventYojana.API.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

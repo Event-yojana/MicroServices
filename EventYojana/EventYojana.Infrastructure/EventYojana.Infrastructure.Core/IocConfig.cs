@@ -1,6 +1,4 @@
 ﻿using EventYojana.Infrastructure.Core.Common;
-using EventYojana.Infrastructure.Core.Services;
-using EventYojana.Infrastructure.Core.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +12,6 @@ namespace EventYojana.Infrastructure.Core
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
             // configure DI for application services
-            services.AddScoped<IUserService, UserService>();
             //services.AddScoped<, > ();
         }
 
