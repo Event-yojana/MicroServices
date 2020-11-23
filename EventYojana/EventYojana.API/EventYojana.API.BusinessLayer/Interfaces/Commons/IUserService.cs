@@ -1,4 +1,4 @@
-﻿using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Vendor;
+﻿using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Common;
 using EventYojana.Infrastructure.Core.Models;
 using System.Threading.Tasks;
 
@@ -8,6 +8,6 @@ namespace EventYojana.API.BusinessLayer.Interfaces.Commons
     {
         Task<AuthenticateResponse> Authenticate(AuthenticateRequest authenticateRequest);
 
-        Task<bool> RegisterBranch(VendorDetailsRequestModel vendorDetailsRequestModel);
+        Task<bool> RegisterVendor(RegisterVendorRequestModel vendorDetailsRequestModel);
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Vendor
+namespace EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Common
 {
-    public class VendorDetailsRequestModel
+    public class RegisterVendorRequestModel
     {
         public string VendorName { get; set; }
         public string VendorEmail { get; set; }

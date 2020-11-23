@@ -1,6 +1,10 @@
-﻿namespace EventYojana.API.DataAccess.DataEntities.Common
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace EventYojana.API.DataAccess.DataEntities.Vendor
 {
-    public class RegisterUser
+    public class RegisterVendor
     {
         public string VendorName { get; set; }
         public string VendorEmail { get; set; }

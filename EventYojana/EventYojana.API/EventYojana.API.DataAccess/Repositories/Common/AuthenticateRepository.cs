@@ -1,5 +1,6 @@
 ﻿using EventYojana.API.DataAccess.DataEntities;
 using EventYojana.API.DataAccess.DataEntities.Common;
+using EventYojana.API.DataAccess.DataEntities.Vendor;
 using EventYojana.API.DataAccess.Interfaces;
 using EventYojana.API.DataAccess.Interfaces.Common;
 using EventYojana.Infrastructure.Core.Models;
@@ -31,7 +32,7 @@ namespace EventYojana.API.DataAccess.Repositories.Common
             return await _databaseContext.Repository<UserLogin>().ExistsAsync(filter);
         }
 
-        public async Task<bool> RegisterBranch(RegisterUser registerUserModel)
+        public async Task<bool> RegisterVendor(RegisterVendor registerUserModel)
         {
             List<SqlParameter> sqlParameters = new List<SqlParameter>()
             {
@@ -44,7 +45,7 @@ namespace EventYojana.API.DataAccess.Repositories.Common
                 new SqlParameter("Passwordsalt", registerUserModel.PasswordSalt),
             };
 
-            return await _databaseContext.Repository<Task<bool>>().ExecuteNonQuerySp("dbo.RegisterUser", sqlParameters.ToArray());
+            return await _databaseContext.Repository<Task<bool>>().ExecuteNonQuerySp(StoreProcedureSchemas.usp_RegisterVendor, sqlParameters.ToArray());
         }
     }
 }

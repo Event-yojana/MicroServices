@@ -8,9 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EventYojana.API.Vendor.Controllers
 {
+    /// <summary>
+    /// Common controller
+    /// </summary>
     [Authorize]
     public abstract class BaseController : ControllerBase
     {
+        /// <summary>
+        /// Common constructure
+        /// </summary>
         protected BaseController()
         {
 

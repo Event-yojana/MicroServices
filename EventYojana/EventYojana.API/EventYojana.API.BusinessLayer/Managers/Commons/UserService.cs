@@ -1,6 +1,8 @@
-﻿using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Vendor;
+﻿using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Common;
+using EventYojana.API.BusinessLayer.Constants;
 using EventYojana.API.BusinessLayer.Interfaces.Commons;
 using EventYojana.API.DataAccess.DataEntities.Common;
+using EventYojana.API.DataAccess.DataEntities.Vendor;
 using EventYojana.API.DataAccess.Interfaces.Common;
 using EventYojana.Infrastructure.Core.Common;
 using EventYojana.Infrastructure.Core.Helpers;
@@ -45,21 +47,22 @@ namespace EventYojana.API.BusinessLayer.Managers.Commons
 
         }
 
-        public async Task<bool> RegisterBranch(VendorDetailsRequestModel vendorDetailsRequestModel)
+        public async Task<bool> RegisterVendor(RegisterVendorRequestModel vendorDetailsRequestModel)
         {
             var userDetails = await _authenticateRepository.IsUserDetails(x => x.Username == vendorDetailsRequestModel.UserName);
             if(!userDetails)
             {
-                RegisterUser registerUser = new RegisterUser()
+                RegisterVendor registerUser = new RegisterVendor()
                 {
                     VendorName = vendorDetailsRequestModel.VendorName,
                     VendorEmail = vendorDetailsRequestModel.VendorEmail,
                     Username = vendorDetailsRequestModel.UserName,
+                    UserType = (int)UserType.Vendor.GetTypeCode(),
                     PasswordSalt = AuthenticateUtility.CreatePasswordSalt()
                 };
 
                 registerUser.Password = AuthenticateUtility.GeneratePassword(vendorDetailsRequestModel.Password, registerUser.PasswordSalt);
-                return await _authenticateRepository.RegisterBranch(registerUser);
+                return await _authenticateRepository.RegisterVendor(registerUser);
             }
 
             return false;

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Vendor;
+using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Common;
 using EventYojana.API.BusinessLayer.Interfaces.Commons;
 using EventYojana.API.Vendor.Constants;
 using EventYojana.Infrastructure.Core.Attributes;
@@ -12,24 +12,24 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace EventYojana.API.Vendor.Controllers
 {
     /// <summary>
-    /// Login Vendor
+    /// Vendor login controller
     /// </summary>
     [Route("api/Vendor/[controller]")]
     [ApiController]
-    public class LoginController : BaseController
+    public class AuthenticateController : BaseController
     {
         private readonly IUserService _userService;
 
         /// <summary>
-        /// Controller 
+        /// Vendor login controller 
         /// </summary>
         /// <param name="userService"></param>
-        public LoginController(IUserService userService)
+        public AuthenticateController(IUserService userService)
         {
             _userService = userService;
         }
         /// <summary>
-        /// Authenticate User
+        /// Authenticate vendor user
         /// </summary>
         /// <returns></returns>
         [Route("Authenticate")]
@@ -53,7 +53,7 @@ namespace EventYojana.API.Vendor.Controllers
         }
 
         /// <summary>
-        /// Register branches of vendor.
+        /// Register vendor user
         /// </summary>
         /// <param name="vendorDetailsRequestModel"></param>
         /// <returns></returns>
@@ -61,7 +61,7 @@ namespace EventYojana.API.Vendor.Controllers
         [HttpPost]
         [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { SwaggerTags.Vendor }, OperationId = nameof(SwaggerOperation.RegisterVendor))]
-        public async Task<IActionResult> RegisterUser(VendorDetailsRequestModel vendorDetailsRequestModel)
+        public async Task<IActionResult> RegisterVendor(RegisterVendorRequestModel vendorDetailsRequestModel)
         {
             ValidationException validationException = new ValidationException();
             validationException.Add(nameof(vendorDetailsRequestModel.VendorName), vendorDetailsRequestModel.VendorName, ValidationReason.Required);
@@ -73,9 +73,9 @@ namespace EventYojana.API.Vendor.Controllers
                 throw validationException;
             }
 
-            var result = await _userService.RegisterBranch(vendorDetailsRequestModel);
+            var result = await _userService.RegisterVendor(vendorDetailsRequestModel);
 
-            return Ok();
+            return Ok(result);
         }
     }
 }

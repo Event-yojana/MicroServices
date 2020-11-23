@@ -4,29 +4,39 @@
         <name>EventYojana.API.Vendor</name>
     </assembly>
     <members>
-        <member name="T:EventYojana.API.Vendor.Controllers.LoginController">
+        <member name="T:EventYojana.API.Vendor.Controllers.AuthenticateController">
             <summary>
-            Login Vendor
+            Vendor login controller
             </summary>
         </member>
-        <member name="M:EventYojana.API.Vendor.Controllers.LoginController.#ctor(EventYojana.API.BusinessLayer.Interfaces.Commons.IUserService)">
+        <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.#ctor(EventYojana.API.BusinessLayer.Interfaces.Commons.IUserService)">
             <summary>
-            Controller 
+            Vendor login controller 
             </summary>
             <param name="userService"></param>
         </member>
-        <member name="M:EventYojana.API.Vendor.Controllers.LoginController.AuthenticateUser(EventYojana.Infrastructure.Core.Models.AuthenticateRequest)">
+        <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.AuthenticateUser(EventYojana.Infrastructure.Core.Models.AuthenticateRequest)">
             <summary>
-            Authenticate User
+            Authenticate vendor user
             </summary>
             <returns></returns>
         </member>
-        <member name="M:EventYojana.API.Vendor.Controllers.LoginController.RegisterUser(EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Vendor.VendorDetailsRequestModel)">
+        <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.RegisterVendor(EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Common.RegisterVendorRequestModel)">
             <summary>
-            Register branches of vendor.
+            Register vendor user
             </summary>
             <param name="vendorDetailsRequestModel"></param>
             <returns></returns>
+        </member>
+        <member name="T:EventYojana.API.Vendor.Controllers.BaseController">
+            <summary>
+            Common controller
+            </summary>
+        </member>
+        <member name="M:EventYojana.API.Vendor.Controllers.BaseController.#ctor">
+            <summary>
+            Common constructure
+            </summary>
         </member>
     </members>
 </doc>

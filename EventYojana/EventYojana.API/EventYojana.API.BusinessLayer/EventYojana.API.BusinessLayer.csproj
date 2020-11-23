@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="BusinessEntities\RequestModels\Customer\" />
+    <Folder Include="BusinessEntities\RequestModels\Vendor\" />
     <Folder Include="BusinessEntities\ViewModel\Customer\" />
     <Folder Include="BusinessEntities\ViewModel\Vendor\" />
     <Folder Include="Interfaces\Customer\" />

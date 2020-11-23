@@ -1,4 +1,5 @@
 ﻿using EventYojana.API.DataAccess.DataEntities.Common;
+using EventYojana.API.DataAccess.DataEntities.Vendor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace EventYojana.API.DataAccess.Interfaces.Common
     {
         Task<UserLogin> GetUserDetails(Expression<Func<UserLogin, bool>> filter);
         Task<bool> IsUserDetails(Expression<Func<UserLogin, bool>> filter);
-        Task<bool> RegisterBranch(RegisterUser registerUser);
+        Task<bool> RegisterVendor(RegisterVendor registerUser);
     }
 }
