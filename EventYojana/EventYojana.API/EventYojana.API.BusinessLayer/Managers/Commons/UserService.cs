@@ -1,4 +1,5 @@
 ﻿using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Common;
+using EventYojana.API.BusinessLayer.BusinessEntities.ViewModel.Common;
 using EventYojana.API.BusinessLayer.Constants;
 using EventYojana.API.BusinessLayer.Interfaces.Commons;
 using EventYojana.API.DataAccess.DataEntities.Common;
@@ -16,6 +17,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using static EventYojana.Infrastructure.Core.Enum.SecurityEnum;
 
 namespace EventYojana.API.BusinessLayer.Managers.Commons
 {
@@ -35,47 +37,53 @@ namespace EventYojana.API.BusinessLayer.Managers.Commons
             var userDetails = await _authenticateRepository.GetUserDetails(x => x.Username == authenticateRequest.UserName && x.UserType == (int)authenticateRequest.UserType);
             
             if (userDetails == null) return null;
-            var token = generateJwtToken(userDetails);
 
-            //Mapper
-            AuthenticateResponse authenticateResponse = new AuthenticateResponse()
+            if(userDetails.Password == AuthenticateUtility.GeneratePassword(authenticateRequest.Password, userDetails.PasswordSalt))
             {
-                Token = token
-            };
+                var token = GenerateJwtToken(userDetails);
 
-            return authenticateResponse;
-
+                AuthenticateResponse authenticateResponse = new AuthenticateResponse()
+                {
+                    Token = token
+                };
+                return authenticateResponse;
+            }
+            return null;
         }
 
-        public async Task<bool> RegisterVendor(RegisterVendorRequestModel vendorDetailsRequestModel)
+        public async Task<PostResponseModel> RegisterVendor(RegisterVendorRequestModel vendorDetailsRequestModel)
         {
-            var userDetails = await _authenticateRepository.IsUserDetails(x => x.Username == vendorDetailsRequestModel.UserName);
-            if(!userDetails)
+            PostResponseModel postResponseModel = new PostResponseModel();
+
+            var isUserExists = await _authenticateRepository.IsUserDetails(x => x.Username == vendorDetailsRequestModel.UserName);
+            postResponseModel.IsAlreadyExists = isUserExists;
+
+            if (!postResponseModel.IsAlreadyExists)
             {
                 RegisterVendor registerUser = new RegisterVendor()
                 {
                     VendorName = vendorDetailsRequestModel.VendorName,
                     VendorEmail = vendorDetailsRequestModel.VendorEmail,
                     Username = vendorDetailsRequestModel.UserName,
-                    UserType = (int)UserType.Vendor.GetTypeCode(),
+                    UserType = (int)UserRoleEnum.Vendor.GetTypeCode(),
                     PasswordSalt = AuthenticateUtility.CreatePasswordSalt()
                 };
 
                 registerUser.Password = AuthenticateUtility.GeneratePassword(vendorDetailsRequestModel.Password, registerUser.PasswordSalt);
-                return await _authenticateRepository.RegisterVendor(registerUser);
+                postResponseModel.Success = await _authenticateRepository.RegisterVendor(registerUser);
             }
 
-            return false;
+            return postResponseModel;
         }
 
-        private string generateJwtToken(UserLogin user)
+        private string GenerateJwtToken(UserLogin user)
         {
             // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.LoginId.ToString()), new Claim("userType", user.UserType.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("ID", EncryptDcryptData.EncryptString(user.LoginId.ToString())), new Claim("USERTYPE", EncryptDcryptData.EncryptString(user.UserType.ToString())) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

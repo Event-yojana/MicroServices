@@ -30,38 +30,34 @@ namespace EventYojana.Infrastructure.Core.Middlewares
             catch(Exception ex)
             {
                 await HandleExceptionAsync(context, ex, logger, env);
-                if(env.IsDevelopment())
-                {
-                    if(ex is ValidationException validationException)
-                    {
-                        var result = JsonConvert.SerializeObject(new
-                        {
-                            validationErrors = validationException.GetErrorMessage()
-                        });
-                        context.Response.ContentType = "application/json";
-                        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                        await context.Response.WriteAsync(result);
-                    }
-                    throw;
-                }
             }
         }
     
         private static Task HandleExceptionAsync(HttpContext context, Exception ex, ILogger<ErrorHandlingMiddleware> Logger, IHostEnvironment env)
         {
             Logger.LogError("{ \"Exception\" : \" " + ex + " \"}");
-            if(!env.IsDevelopment())
+            
+            if (ex is ValidationException validationException)
             {
-                var result = JsonConvert.SerializeObject(new 
-                    {
-                        ResponseCode = "",
-                        ResponseMessage = 500
-                    });
+                var result = JsonConvert.SerializeObject(new
+                {
+                    validationErrors = validationException.GetErrorMessage()
+                });
                 context.Response.ContentType = "application/json";
-                context.Response.StatusCode = 500;
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return context.Response.WriteAsync(result);
             }
-            return Task.CompletedTask;
+            else
+            {
+                var result = JsonConvert.SerializeObject(new
+                {
+                    ResponseCode = "",
+                    ResponseMessage = (int)HttpStatusCode.InternalServerError
+                });
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return context.Response.WriteAsync(result);
+            }
         }
     }
 }

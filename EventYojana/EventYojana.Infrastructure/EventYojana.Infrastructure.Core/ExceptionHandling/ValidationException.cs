@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace EventYojana.Infrastructure.Core.ExceptionHandling
 {
@@ -11,6 +12,7 @@ namespace EventYojana.Infrastructure.Core.ExceptionHandling
     {
         Required,
         EmailFormat,
+        Username,
         PasswordFormat
     }
 
@@ -46,7 +48,27 @@ namespace EventYojana.Infrastructure.Core.ExceptionHandling
                             }
                             break;
                         case ValidationReason.EmailFormat:
-                            if(!error.Item2.ToString().Contains("@") || !error.Item2.ToString().Contains("."))
+                            Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                            Match matchEmail = emailRegex.Match(error.Item2.ToString());
+                            if (!matchEmail.Success)
+                            {
+                                tempReason.Add(error);
+                                returnVal = true;
+                            }
+                            break;
+                        case ValidationReason.Username:
+                            Regex usernameRegex = new Regex(@"^[a-zA-Z][a-zA-Z0-9]{5,11}");
+                            Match matchUsername = usernameRegex.Match(error.Item2.ToString());
+                            if (!matchUsername.Success)
+                            {
+                                tempReason.Add(error);
+                                returnVal = true;
+                            }
+                            break;
+                        case ValidationReason.PasswordFormat:
+                            Regex passwordRegex = new Regex(@"^[a-zA-Z][a-zA-Z0-9]{5,11}");
+                            Match matchPassword = passwordRegex.Match(error.Item2.ToString());
+                            if (!matchPassword.Success)
                             {
                                 tempReason.Add(error);
                                 returnVal = true;

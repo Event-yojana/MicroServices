@@ -17,9 +17,10 @@ namespace EventYojana.Infrastructure.Core.Enum
         public enum UserRoleEnum
         {
             None = 0,
-            Admin = 1,
-            Vendor = 2,
-            Customer = 3
+            SuperAdmin = 1,
+            Admin = 2,
+            Vendor = 3,
+            Customer = 5
         }
     }
 }

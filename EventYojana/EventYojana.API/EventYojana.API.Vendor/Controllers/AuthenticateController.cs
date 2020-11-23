@@ -42,12 +42,17 @@ namespace EventYojana.API.Vendor.Controllers
             ValidationException validationException = new ValidationException();
             validationException.Add(nameof(authenticateRequestModel.UserName), authenticateRequestModel.UserName, ValidationReason.Required);
             validationException.Add(nameof(authenticateRequestModel.Password), authenticateRequestModel.Password, ValidationReason.Required);
-            if(validationException.HasErrors)
+            validationException.Add(nameof(authenticateRequestModel.UserName), authenticateRequestModel.UserName, ValidationReason.Username);
+            validationException.Add(nameof(authenticateRequestModel.Password), authenticateRequestModel.UserName, ValidationReason.PasswordFormat);
+            if (validationException.HasErrors)
             {
                 throw validationException;
             }
 
             var result = await _userService.Authenticate(authenticateRequestModel);
+
+            if (result == null)
+                return Unauthorized();
 
             return Ok(result);
         }
@@ -68,6 +73,9 @@ namespace EventYojana.API.Vendor.Controllers
             validationException.Add(nameof(vendorDetailsRequestModel.VendorEmail), vendorDetailsRequestModel.VendorEmail, ValidationReason.Required);
             validationException.Add(nameof(vendorDetailsRequestModel.UserName), vendorDetailsRequestModel.UserName, ValidationReason.Required);
             validationException.Add(nameof(vendorDetailsRequestModel.Password), vendorDetailsRequestModel.Password, ValidationReason.Required);
+            validationException.Add(nameof(vendorDetailsRequestModel.UserName), vendorDetailsRequestModel.UserName, ValidationReason.Username);
+            validationException.Add(nameof(vendorDetailsRequestModel.VendorEmail), vendorDetailsRequestModel.UserName, ValidationReason.EmailFormat);
+            validationException.Add(nameof(vendorDetailsRequestModel.Password), vendorDetailsRequestModel.UserName, ValidationReason.PasswordFormat);
             if (validationException.HasErrors)
             {
                 throw validationException;
@@ -75,7 +83,10 @@ namespace EventYojana.API.Vendor.Controllers
 
             var result = await _userService.RegisterVendor(vendorDetailsRequestModel);
 
-            return Ok(result);
+            if (result.IsAlreadyExists)
+                return NoContent();
+
+            return Ok(result.Success);
         }
     }
 }
