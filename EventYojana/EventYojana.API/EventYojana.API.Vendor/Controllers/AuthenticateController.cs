@@ -43,7 +43,7 @@ namespace EventYojana.API.Vendor.Controllers
             validationException.Add(nameof(authenticateRequestModel.UserName), authenticateRequestModel.UserName, ValidationReason.Required);
             validationException.Add(nameof(authenticateRequestModel.Password), authenticateRequestModel.Password, ValidationReason.Required);
             validationException.Add(nameof(authenticateRequestModel.UserName), authenticateRequestModel.UserName, ValidationReason.Username);
-            validationException.Add(nameof(authenticateRequestModel.Password), authenticateRequestModel.UserName, ValidationReason.PasswordFormat);
+            validationException.Add(nameof(authenticateRequestModel.Password), authenticateRequestModel.Password, ValidationReason.PasswordFormat);
             if (validationException.HasErrors)
             {
                 throw validationException;
@@ -75,7 +75,7 @@ namespace EventYojana.API.Vendor.Controllers
             validationException.Add(nameof(vendorDetailsRequestModel.Password), vendorDetailsRequestModel.Password, ValidationReason.Required);
             validationException.Add(nameof(vendorDetailsRequestModel.UserName), vendorDetailsRequestModel.UserName, ValidationReason.Username);
             validationException.Add(nameof(vendorDetailsRequestModel.VendorEmail), vendorDetailsRequestModel.UserName, ValidationReason.EmailFormat);
-            validationException.Add(nameof(vendorDetailsRequestModel.Password), vendorDetailsRequestModel.UserName, ValidationReason.PasswordFormat);
+            validationException.Add(nameof(vendorDetailsRequestModel.Password), vendorDetailsRequestModel.Password, ValidationReason.PasswordFormat);
             if (validationException.HasErrors)
             {
                 throw validationException;
