@@ -32,20 +32,5 @@ namespace EventYojana.API.DataAccess.Repositories.Common
             return await _databaseContext.Repository<UserLogin>().ExistsAsync(filter);
         }
 
-        public async Task<bool> RegisterVendor(RegisterVendor registerUserModel)
-        {
-            List<SqlParameter> sqlParameters = new List<SqlParameter>()
-            {
-                new SqlParameter("VendorName", registerUserModel.VendorName),
-                new SqlParameter("VendorEmail", registerUserModel.VendorEmail),
-                new SqlParameter("IsBranch", false),
-                new SqlParameter("UserType", registerUserModel.UserType),
-                new SqlParameter("Username", registerUserModel.Username),
-                new SqlParameter("Password", registerUserModel.Password),
-                new SqlParameter("Passwordsalt", registerUserModel.PasswordSalt),
-            };
-
-            return await _databaseContext.Repository<Task<bool>>().ExecuteNonQuerySp(StoreProcedureSchemas.usp_RegisterVendor, sqlParameters.ToArray());
-        }
     }
 }

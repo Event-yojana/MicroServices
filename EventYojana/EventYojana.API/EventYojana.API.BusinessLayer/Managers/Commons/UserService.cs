@@ -1,9 +1,5 @@
-﻿using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Common;
-using EventYojana.API.BusinessLayer.BusinessEntities.ViewModel.Common;
-using EventYojana.API.BusinessLayer.Constants;
-using EventYojana.API.BusinessLayer.Interfaces.Commons;
+﻿using EventYojana.API.BusinessLayer.Interfaces.Commons;
 using EventYojana.API.DataAccess.DataEntities.Common;
-using EventYojana.API.DataAccess.DataEntities.Vendor;
 using EventYojana.API.DataAccess.Interfaces.Common;
 using EventYojana.Infrastructure.Core.Common;
 using EventYojana.Infrastructure.Core.Helpers;
@@ -11,13 +7,10 @@ using EventYojana.Infrastructure.Core.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using static EventYojana.Infrastructure.Core.Enum.SecurityEnum;
 
 namespace EventYojana.API.BusinessLayer.Managers.Commons
 {
@@ -49,31 +42,6 @@ namespace EventYojana.API.BusinessLayer.Managers.Commons
                 return authenticateResponse;
             }
             return null;
-        }
-
-        public async Task<PostResponseModel> RegisterVendor(RegisterVendorRequestModel vendorDetailsRequestModel)
-        {
-            PostResponseModel postResponseModel = new PostResponseModel();
-
-            var isUserExists = await _authenticateRepository.IsUserDetails(x => x.Username == vendorDetailsRequestModel.UserName);
-            postResponseModel.IsAlreadyExists = isUserExists;
-
-            if (!postResponseModel.IsAlreadyExists)
-            {
-                RegisterVendor registerUser = new RegisterVendor()
-                {
-                    VendorName = vendorDetailsRequestModel.VendorName,
-                    VendorEmail = vendorDetailsRequestModel.VendorEmail,
-                    Username = vendorDetailsRequestModel.UserName,
-                    UserType = (int)UserRoleEnum.Vendor.GetTypeCode(),
-                    PasswordSalt = AuthenticateUtility.CreatePasswordSalt()
-                };
-
-                registerUser.Password = AuthenticateUtility.GeneratePassword(vendorDetailsRequestModel.Password, registerUser.PasswordSalt);
-                postResponseModel.Success = await _authenticateRepository.RegisterVendor(registerUser);
-            }
-
-            return postResponseModel;
         }
 
         private string GenerateJwtToken(UserLogin user)

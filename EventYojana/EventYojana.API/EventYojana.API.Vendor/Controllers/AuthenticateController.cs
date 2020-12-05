@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Common;
+using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Vendor;
 using EventYojana.API.BusinessLayer.Interfaces.Commons;
+using EventYojana.API.BusinessLayer.Interfaces.Vendor;
 using EventYojana.API.Vendor.Constants;
-using EventYojana.Infrastructure.Core.Attributes;
 using EventYojana.Infrastructure.Core.ExceptionHandling;
 using EventYojana.Infrastructure.Core.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -11,23 +11,51 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace EventYojana.API.Vendor.Controllers
 {
-    /// <summary>
-    /// Vendor login controller
-    /// </summary>
+
     [Route("api/Vendor/[controller]")]
     [ApiController]
     public class AuthenticateController : BaseController
     {
         private readonly IUserService _userService;
+        private readonly IVendorAuthenticationManager _vendorAuthenticationManager;
 
-        /// <summary>
-        /// Vendor login controller 
-        /// </summary>
-        /// <param name="userService"></param>
-        public AuthenticateController(IUserService userService)
+        public AuthenticateController(IUserService userService, IVendorAuthenticationManager vendorAuthenticationManager)
         {
             _userService = userService;
+            _vendorAuthenticationManager = vendorAuthenticationManager;
         }
+
+        /// <summary>
+        /// Register vendor user
+        /// </summary>
+        /// <param name="vendorDetailsRequestModel"></param>
+        /// <returns></returns>
+        [Route("Register")]
+        [HttpPost]
+        [AllowAnonymous]
+        [SwaggerOperation(Tags = new[] { SwaggerTags.Vendor }, OperationId = nameof(SwaggerOperation.RegisterVendor))]
+        public async Task<IActionResult> RegisterVendor(RegisterVendorRequestModel vendorDetailsRequestModel)
+        {
+            ValidationException validationException = new ValidationException();
+            validationException.Add(nameof(vendorDetailsRequestModel.VendorName), vendorDetailsRequestModel.VendorName, ValidationReason.Required);
+            validationException.Add(nameof(vendorDetailsRequestModel.VendorEmail), vendorDetailsRequestModel.VendorEmail, ValidationReason.Required);
+            validationException.Add(nameof(vendorDetailsRequestModel.VendorMobile), vendorDetailsRequestModel.VendorMobile, ValidationReason.Required);
+            validationException.Add(nameof(vendorDetailsRequestModel.AddressLine), vendorDetailsRequestModel.AddressLine, ValidationReason.Required);
+            validationException.Add(nameof(vendorDetailsRequestModel.City), vendorDetailsRequestModel.City, ValidationReason.Required);
+            validationException.Add(nameof(vendorDetailsRequestModel.State), vendorDetailsRequestModel.State, ValidationReason.Required);
+            validationException.Add(nameof(vendorDetailsRequestModel.PinCode), vendorDetailsRequestModel.PinCode, ValidationReason.Required);
+            validationException.Add(nameof(vendorDetailsRequestModel.VendorEmail), vendorDetailsRequestModel.VendorEmail, ValidationReason.EmailFormat);
+            validationException.Add(nameof(vendorDetailsRequestModel.VendorMobile), vendorDetailsRequestModel.VendorMobile, ValidationReason.PhoneNumber);
+            validationException.Add(nameof(vendorDetailsRequestModel.PinCode), vendorDetailsRequestModel.PinCode, ValidationReason.PinCode);
+
+            if (validationException.HasErrors)
+            {
+                throw validationException;
+            }
+
+            return Ok(await _vendorAuthenticationManager.RegisterVendor(vendorDetailsRequestModel));
+        }
+
         /// <summary>
         /// Authenticate vendor user
         /// </summary>
@@ -57,36 +85,5 @@ namespace EventYojana.API.Vendor.Controllers
             return Ok(result);
         }
 
-        /// <summary>
-        /// Register vendor user
-        /// </summary>
-        /// <param name="vendorDetailsRequestModel"></param>
-        /// <returns></returns>
-        [Route("Register")]
-        [HttpPost]
-        [AllowAnonymous]
-        [SwaggerOperation(Tags = new[] { SwaggerTags.Vendor }, OperationId = nameof(SwaggerOperation.RegisterVendor))]
-        public async Task<IActionResult> RegisterVendor(RegisterVendorRequestModel vendorDetailsRequestModel)
-        {
-            ValidationException validationException = new ValidationException();
-            validationException.Add(nameof(vendorDetailsRequestModel.VendorName), vendorDetailsRequestModel.VendorName, ValidationReason.Required);
-            validationException.Add(nameof(vendorDetailsRequestModel.VendorEmail), vendorDetailsRequestModel.VendorEmail, ValidationReason.Required);
-            validationException.Add(nameof(vendorDetailsRequestModel.UserName), vendorDetailsRequestModel.UserName, ValidationReason.Required);
-            validationException.Add(nameof(vendorDetailsRequestModel.Password), vendorDetailsRequestModel.Password, ValidationReason.Required);
-            validationException.Add(nameof(vendorDetailsRequestModel.UserName), vendorDetailsRequestModel.UserName, ValidationReason.Username);
-            validationException.Add(nameof(vendorDetailsRequestModel.VendorEmail), vendorDetailsRequestModel.UserName, ValidationReason.EmailFormat);
-            validationException.Add(nameof(vendorDetailsRequestModel.Password), vendorDetailsRequestModel.Password, ValidationReason.PasswordFormat);
-            if (validationException.HasErrors)
-            {
-                throw validationException;
-            }
-
-            var result = await _userService.RegisterVendor(vendorDetailsRequestModel);
-
-            if (result.IsAlreadyExists)
-                return NoContent();
-
-            return Ok(result.Success);
-        }
     }
 }

@@ -7,9 +7,7 @@
   <ItemGroup>
     <Folder Include="DataEntities\Customer\" />
     <Folder Include="Interfaces\Customer\" />
-    <Folder Include="Interfaces\Vendor\" />
     <Folder Include="Repositories\Customer\" />
-    <Folder Include="Repositories\Vendor\" />
   </ItemGroup>
 
   <ItemGroup>

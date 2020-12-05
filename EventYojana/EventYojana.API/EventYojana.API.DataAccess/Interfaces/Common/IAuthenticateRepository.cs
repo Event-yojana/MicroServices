@@ -13,6 +13,5 @@ namespace EventYojana.API.DataAccess.Interfaces.Common
     {
         Task<UserLogin> GetUserDetails(Expression<Func<UserLogin, bool>> filter);
         Task<bool> IsUserDetails(Expression<Func<UserLogin, bool>> filter);
-        Task<bool> RegisterVendor(RegisterVendor registerUser);
     }
 }

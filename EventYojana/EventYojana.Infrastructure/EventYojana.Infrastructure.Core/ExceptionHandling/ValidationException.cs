@@ -13,7 +13,9 @@ namespace EventYojana.Infrastructure.Core.ExceptionHandling
         Required,
         EmailFormat,
         Username,
-        PasswordFormat
+        PasswordFormat,
+        PinCode,
+        PhoneNumber
     }
 
     [Serializable]
@@ -74,6 +76,24 @@ namespace EventYojana.Infrastructure.Core.ExceptionHandling
                                 returnVal = true;
                             }
                             break;
+                        case ValidationReason.PinCode:
+                            Regex pinRegex = new Regex(@"^[1-9][0-9]{5}$");
+                            Match matchPin = pinRegex.Match(error.Item2.ToString());
+                            if (!matchPin.Success)
+                            {
+                                tempReason.Add(error);
+                                returnVal = true;
+                            }
+                            break;
+                        case ValidationReason.PhoneNumber:
+                            Regex phoneRegex = new Regex(@"^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$");
+                            Match matchPhoneNumber = phoneRegex.Match(error.Item2.ToString());
+                            if (!matchPhoneNumber.Success)
+                            {
+                                tempReason.Add(error);
+                                returnVal = true;
+                            }
+                            break;
                     }
                 }
                 _reason.Clear();
@@ -111,6 +131,10 @@ namespace EventYojana.Infrastructure.Core.ExceptionHandling
                     return "Required field";
                 case ValidationReason.EmailFormat:
                     return "Invalid email format";
+                case ValidationReason.PhoneNumber:
+                    return "Invalid mobile/landline number";
+                case ValidationReason.PinCode:
+                    return "Invalid Pincode";
                 default:
                     return "General";
             }

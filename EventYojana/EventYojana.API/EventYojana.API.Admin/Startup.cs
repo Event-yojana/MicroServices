@@ -23,7 +23,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-namespace EventYojana.API.Vendor
+namespace EventYojana.API.Admin
 {
     public class Startup
     {
@@ -83,10 +83,11 @@ namespace EventYojana.API.Vendor
 
             //Register swagger
             services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Event Yojana Vendor Service", Version = "v1" });
-                
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Event Yojana Admin Service", Version = "v1" });
+
                 const string idSecurity = "AppKey";
-                c.AddSecurityDefinition(idSecurity, new OpenApiSecurityScheme { 
+                c.AddSecurityDefinition(idSecurity, new OpenApiSecurityScheme
+                {
                     Name = Configuration.GetValue<string>("AppKeyConfig:HeaderName"),
                     In = ParameterLocation.Header,
                     Description = "Individual Application Key.",
@@ -113,8 +114,6 @@ namespace EventYojana.API.Vendor
                 c.OperationFilter<FileOperationFilter>();
                 c.EnableAnnotations();
             });
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

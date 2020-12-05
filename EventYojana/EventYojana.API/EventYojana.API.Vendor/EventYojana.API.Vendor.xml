@@ -4,28 +4,17 @@
         <name>EventYojana.API.Vendor</name>
     </assembly>
     <members>
-        <member name="T:EventYojana.API.Vendor.Controllers.AuthenticateController">
+        <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.RegisterVendor(EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Vendor.RegisterVendorRequestModel)">
             <summary>
-            Vendor login controller
+            Register vendor user
             </summary>
-        </member>
-        <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.#ctor(EventYojana.API.BusinessLayer.Interfaces.Commons.IUserService)">
-            <summary>
-            Vendor login controller 
-            </summary>
-            <param name="userService"></param>
+            <param name="vendorDetailsRequestModel"></param>
+            <returns></returns>
         </member>
         <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.AuthenticateUser(EventYojana.Infrastructure.Core.Models.AuthenticateRequest)">
             <summary>
             Authenticate vendor user
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.RegisterVendor(EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Common.RegisterVendorRequestModel)">
-            <summary>
-            Register vendor user
-            </summary>
-            <param name="vendorDetailsRequestModel"></param>
             <returns></returns>
         </member>
         <member name="T:EventYojana.API.Vendor.Controllers.BaseController">
