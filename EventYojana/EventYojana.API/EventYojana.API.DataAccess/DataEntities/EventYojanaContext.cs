@@ -32,6 +32,7 @@ namespace EventYojana.API.DataAccess.DataEntities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserLogin>().HasKey(x => x.LoginId);
+            modelBuilder.Entity<EmailLogs>().HasKey(x => x.EmailLogId);
         }
     }
 }

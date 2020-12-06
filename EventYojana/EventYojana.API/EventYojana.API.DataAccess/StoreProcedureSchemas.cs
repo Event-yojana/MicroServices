@@ -10,5 +10,6 @@ namespace EventYojana.API.DataAccess
         private static string VendorSchema = "vendor";
 
         public static string usp_RegisterVendor = string.Format("{0}.usp_RegisterVendor", VendorSchema);
+        public static string usp_GetVendorsDetails = string.Format("{0}.usp_GetVendorsDetails", VendorSchema);
     }
 }

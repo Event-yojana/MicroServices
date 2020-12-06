@@ -9,7 +9,7 @@
             
             </summary>
         </member>
-        <member name="M:EventYojana.API.Admin.Controllers.VendorController.#ctor">
+        <member name="M:EventYojana.API.Admin.Controllers.VendorController.#ctor(EventYojana.API.BusinessLayer.Interfaces.Admin.IVendorManager)">
             <summary>
             
             </summary>

@@ -7,6 +7,6 @@ namespace EventYojana.API.Admin.Constants
 {
     public class SwaggerOperation
     {
-        public const string RequestForRegister = "Vendors list request for registration";
+        public const string RequestForRegister = "Vendors list requested to register.";
     }
 }

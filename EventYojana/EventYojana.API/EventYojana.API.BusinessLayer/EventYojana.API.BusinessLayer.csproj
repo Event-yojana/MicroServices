@@ -8,7 +8,6 @@
     <Folder Include="BusinessEntities\RequestModels\Common\" />
     <Folder Include="BusinessEntities\RequestModels\Customer\" />
     <Folder Include="BusinessEntities\ViewModel\Customer\" />
-    <Folder Include="BusinessEntities\ViewModel\Vendor\" />
     <Folder Include="Interfaces\Customer\" />
     <Folder Include="Managers\Customer\" />
   </ItemGroup>

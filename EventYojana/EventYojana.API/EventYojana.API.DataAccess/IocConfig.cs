@@ -1,7 +1,9 @@
 ﻿using EventYojana.API.DataAccess.DataEntities;
 using EventYojana.API.DataAccess.Interfaces;
+using EventYojana.API.DataAccess.Interfaces.Admin;
 using EventYojana.API.DataAccess.Interfaces.Common;
 using EventYojana.API.DataAccess.Interfaces.Vendor;
+using EventYojana.API.DataAccess.Repositories.Admin;
 using EventYojana.API.DataAccess.Repositories.Common;
 using EventYojana.API.DataAccess.Repositories.Vendor;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +26,7 @@ namespace EventYojana.API.DataAccess
             serviceCollection.AddTransient<IAuthenticateRepository, AuthenticateRepository>();
             serviceCollection.AddTransient<IVendorAuthenticationRepository, VendorAuthenticationRepository>();
             serviceCollection.AddTransient<ILoggingRepository, LoggingRepository>();
+            serviceCollection.AddTransient<IVendorRepository, VendorRepository>();
 
         }
     }
