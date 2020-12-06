@@ -4,10 +4,15 @@ CREATE PROCEDURE [vendor].[usp_RegisterVendor]
 	@VendorName NVARCHAR(50),
 	@VendorEmail NVARCHAR(50),
 	@IsBranch bit,
-	@UserType INT,
-	@Username NVARCHAR(50),
-	@Password NVARCHAR(MAX),
-	@Passwordsalt NVARCHAR(MAX)
+	@Mobile NVARCHAR(15),
+	@Landline NVARCHAR(15),
+	@AddressLine NVARCHAR(max),
+	@City NVARCHAR(50),
+	@State NVARCHAR(50),
+	@PinCode INT,
+	@IsUserExists bit OUTPUT,
+	@Success bit OUTPUT,
+	@VendorId INT OUTPUT
 )
 AS
 BEGIN
@@ -15,37 +20,57 @@ BEGIN
 	BEGIN TRANSACTION
 	BEGIN TRY
 
-		DECLARE @LoginId INT;
+		IF NOT EXISTS(SELECT VendorId FROM [vendor].[VendorDetails] WHERE [VendorEmail] = @VendorEmail)
+		BEGIN
+			SET @IsUserExists = 0;
+			DECLARE @AddressId INT;
 
-		INSERT INTO [dbo].[UserLogin]
-			   ([UserType]
-			   ,[Username]
-			   ,[Password]
-			   ,[PasswordSalt]
-			   ,[IsVerifiedUser])
-		 VALUES
-			   (@UserType
-			   ,@Username
-			   ,@Password
-			   ,@Passwordsalt
-			   ,0)
+			INSERT INTO [dbo].[Address]
+			   ([AddressLine]
+			   ,[City]
+			   ,[State]
+			   ,[PinCode])
+			 VALUES
+				   (@AddressLine
+				   ,@City
+				   ,@State
+				   ,@PinCode)
 
-		SET @LoginId = @@IDENTITY
+			SET @AddressId = @@IDENTITY
 
-		INSERT INTO [dbo].[VendorDetails]
-			   ([LoginId]
-			   ,[VendorName]
+			INSERT INTO [vendor].[VendorDetails]
+			   ([VendorName]
 			   ,[VendorEmail]
-			   ,[IsBranch])
-		 VALUES
-			   (@LoginId
-			   ,@VendorName
-			   ,@VendorEmail
-			   ,@IsBranch)
+			   ,[IsBranch]
+			   ,[Mobile]
+			   ,[Landline]
+			   ,[AddressId]
+			   ,[IsLoginByVendor])
+			 VALUES
+				   (@VendorName
+				   ,@VendorEmail
+				   ,@IsBranch
+				   ,@Mobile
+				   ,@Landline
+				   ,@AddressId
+				   ,0)
+
+			SET @VendorId = @@IDENTITY
+
+		END
+		ELSE
+		BEGIN
+			SET @IsUserExists = 1;
+		END
+
+		SET @Success = 1;
 
 		COMMIT TRANSACTION
+
 	END TRY
 	BEGIN CATCH
+
+	  SET @Success = 0;
 
       ROLLBACK TRANSACTION [Tran1]
 
