@@ -69,7 +69,7 @@ namespace EventYojana.API.BusinessLayer.Managers.Vendor
                     ApplicationId = 1,
                     FromUserType = "System",
                     ToUserType = "Vendor",
-                    ToUserId = registerVendorResponse.VendorId
+                    ToUserId = registerVendorResponse.Content.VendorId
                 };
 
                 await _loggingRepository.LogEmailTransaction(emailLogDetails);

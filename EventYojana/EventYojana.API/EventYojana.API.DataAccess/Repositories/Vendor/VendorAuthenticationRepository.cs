@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,14 +41,21 @@ namespace EventYojana.API.DataAccess.Repositories.Vendor
             {
                 new SqlParameter("IsUserExists", SqlDbType.Bit),
                 new SqlParameter("Success", SqlDbType.Bit),
-                new SqlParameter("VendorId", SqlDbType.Int)
             };
 
             var result = _databaseContext.Repository<Task>().ExecuteSp(StoreProcedureSchemas.usp_RegisterVendor, sqlParameters.ToArray(), outputParameter);
 
             registerVendorResponse.IsUserExists = Convert.ToBoolean(result.OutParam[0].Value);
             registerVendorResponse.Success = Convert.ToBoolean(result.OutParam[1].Value);
-            registerVendorResponse.VendorId = Convert.ToInt32(result.OutParam[2].Value);
+            registerVendorResponse.Content =
+            result.Data.AsEnumerable().Select(dataRow => new VendorDetails
+            {
+                VendorId = dataRow.Field<int>("VendorId"),
+                VendorName = dataRow.Field<string>("VendorName"),
+                VendorEmail = dataRow.Field<string>("VendorEmail"),
+                Mobile = dataRow.Field<string>("Mobile"),
+                Landline = dataRow.Field<string>("Landline"),
+            }).FirstOrDefault();
 
             return await Task.FromResult(registerVendorResponse);
         }

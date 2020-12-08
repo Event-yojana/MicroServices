@@ -10,17 +10,12 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace EventYojana.API.Admin.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [Route("api/Admin/[controller]")]
     [ApiController]
     public class VendorController : ControllerBase
     {
         private readonly IVendorManager _vendorManager;
-        /// <summary>
-        /// 
-        /// </summary>
+        
         public VendorController(IVendorManager vendorManager)
         {
             _vendorManager = vendorManager;
@@ -37,5 +32,18 @@ namespace EventYojana.API.Admin.Controllers
         {
             return Ok(await _vendorManager.GetRegisteredVendorsList());
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [Route("Confirm")]
+        [HttpPost]
+        [SwaggerOperation(Tags = new[] { SwaggerTags.Vendor }, OperationId = nameof(SwaggerOperation.RequestForRegister))]
+        public async Task<IActionResult> ConfirmRegistration()
+        {
+            return Ok();
+        }
+
     }
 }

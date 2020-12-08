@@ -4,17 +4,13 @@
         <name>EventYojana.API.Admin</name>
     </assembly>
     <members>
-        <member name="T:EventYojana.API.Admin.Controllers.VendorController">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:EventYojana.API.Admin.Controllers.VendorController.#ctor(EventYojana.API.BusinessLayer.Interfaces.Admin.IVendorManager)">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="M:EventYojana.API.Admin.Controllers.VendorController.NotRegisteredVendors">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EventYojana.API.Admin.Controllers.VendorController.ConfirmRegistration">
             <summary>
             
             </summary>

@@ -8,6 +8,6 @@ namespace EventYojana.API.DataAccess.DataEntities.Vendor
     {
         public bool IsUserExists { get; set; }
         public bool Success { get; set; }
-        public int VendorId { get; set; }
+        public VendorDetails Content { get; set; }
     }
 }
