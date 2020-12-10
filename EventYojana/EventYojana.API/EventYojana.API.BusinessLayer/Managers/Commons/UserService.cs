@@ -1,4 +1,5 @@
-﻿using EventYojana.API.BusinessLayer.Interfaces.Commons;
+﻿using EventYojana.API.BusinessLayer.BusinessEntities.ViewModel.Common;
+using EventYojana.API.BusinessLayer.Interfaces.Commons;
 using EventYojana.API.DataAccess.DataEntities.Common;
 using EventYojana.API.DataAccess.Interfaces.Common;
 using EventYojana.Infrastructure.Core.Common;
@@ -25,13 +26,18 @@ namespace EventYojana.API.BusinessLayer.Managers.Commons
             _appSettings = options.Value;
             _authenticateRepository = authenticateRepository;
         }
-        public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest authenticateRequest)
+        public async Task<GetResponseModel> Authenticate(string UserName, string Password, int UserType)
         {
-            var userDetails = await _authenticateRepository.GetUserDetails(x => x.Username == authenticateRequest.UserName && x.UserType == (int)authenticateRequest.UserType);
-            
-            if (userDetails == null) return null;
+            GetResponseModel getResponseModel = new GetResponseModel();
 
-            if(userDetails.Password == AuthenticateUtility.GeneratePassword(authenticateRequest.Password, userDetails.PasswordSalt))
+            var userDetails = await _authenticateRepository.GetUserDetails(x => x.Username == UserName && x.UserType == (int)UserType);
+
+            if (userDetails == null)
+            {
+                getResponseModel.NoContent = true;
+            }
+
+            if(userDetails.Password == AuthenticateUtility.GeneratePassword(Password, userDetails.PasswordSalt))
             {
                 var token = GenerateJwtToken(userDetails);
 
@@ -39,9 +45,10 @@ namespace EventYojana.API.BusinessLayer.Managers.Commons
                 {
                     Token = token
                 };
-                return authenticateResponse;
+                getResponseModel.Content = authenticateResponse;
             }
-            return null;
+            getResponseModel.Success = true;
+            return getResponseModel;
         }
 
         private string GenerateJwtToken(UserLogin user)

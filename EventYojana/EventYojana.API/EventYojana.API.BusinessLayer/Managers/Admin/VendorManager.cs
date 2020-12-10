@@ -45,14 +45,15 @@ namespace EventYojana.API.BusinessLayer.Managers.Admin
             PostResponseModel postResponseModel = new PostResponseModel();
 
             var passwordSalt = AuthenticateUtility.CreatePasswordSalt();
-            var encryptedPassword = AuthenticateUtility.GeneratePassword(AuthenticateUtility.GetRandomAlphanumericString(8), passwordSalt);
+            var password = AuthenticateUtility.GetRandomAlphanumericString(8);
+            var encryptedPassword = AuthenticateUtility.GeneratePassword(password, passwordSalt);
 
             var registerVendorResponse = await _vendorRepository.ConfirmRegistration(vendorId, encryptedPassword, passwordSalt);
 
             postResponseModel.IsAlreadyExists = registerVendorResponse.IsUserExists;
             if (!postResponseModel.IsAlreadyExists && registerVendorResponse.Success)
             {
-                var emailBody = "Hello !!!";
+                var emailBody = "Your password: " + password;
                 var emailSubject = "Confirm Your Registration";
 
                 var emailResponse = await _messageSenderUtility.SendEmail(emailBody, emailSubject, registerVendorResponse.Content.VendorEmail);

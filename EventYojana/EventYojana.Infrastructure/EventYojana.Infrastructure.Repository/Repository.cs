@@ -172,7 +172,10 @@ namespace EventYojana.Infrastructure.Repository
             {
                 using (SqlConnection con = new SqlConnection(this.DbContext.Database.GetDbConnection().ConnectionString))
                 {
-
+                    if (con.State != ConnectionState.Open)
+                    {
+                        con.Open();
+                    }
                     using (SqlCommand cmd = new SqlCommand(spName, con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -212,7 +215,11 @@ namespace EventYojana.Infrastructure.Repository
             {
                 using(SqlConnection con = new SqlConnection(this.DbContext.Database.GetDbConnection().ConnectionString))
                 {
-                    using(SqlCommand cmd = new SqlCommand())
+                    if (con.State != ConnectionState.Open)
+                    {
+                        con.Open();
+                    }
+                    using (SqlCommand cmd = new SqlCommand(spName, con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         if (InSqlParameters != null && InSqlParameters.Length > 0)
@@ -250,7 +257,11 @@ namespace EventYojana.Infrastructure.Repository
             {
                 using (SqlConnection con = new SqlConnection(this.DbContext.Database.GetDbConnection().ConnectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    if (con.State != ConnectionState.Open)
+                    {
+                        con.Open();
+                    }
+                    using (SqlCommand cmd = new SqlCommand(spName, con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         if (InSqlParameters != null && InSqlParameters.Length > 0)
@@ -282,7 +293,11 @@ namespace EventYojana.Infrastructure.Repository
             {
                 using (SqlConnection con = new SqlConnection(this.DbContext.Database.GetDbConnection().ConnectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    if (con.State != ConnectionState.Open)
+                    {
+                        con.Open();
+                    }
+                    using (SqlCommand cmd = new SqlCommand(SpName, con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         if (InSqlParameters != null && InSqlParameters.Length > 0)
@@ -291,7 +306,7 @@ namespace EventYojana.Infrastructure.Repository
                         }
 
 
-                        using (DataSet dt = new DataSet())
+                        using (DataTable dt = new DataTable())
                         {
                             using (SqlDataAdapter adp = new SqlDataAdapter())
                             {

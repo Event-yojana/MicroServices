@@ -11,7 +11,7 @@
             <param name="vendorDetailsRequestModel"></param>
             <returns></returns>
         </member>
-        <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.AuthenticateUser(EventYojana.Infrastructure.Core.Models.AuthenticateRequest)">
+        <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.AuthenticateUser(System.String,System.String)">
             <summary>
             Authenticate vendor user
             </summary>

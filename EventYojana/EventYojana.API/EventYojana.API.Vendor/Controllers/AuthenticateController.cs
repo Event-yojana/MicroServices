@@ -8,6 +8,7 @@ using EventYojana.Infrastructure.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using static EventYojana.Infrastructure.Core.Enum.SecurityEnum;
 
 namespace EventYojana.API.Vendor.Controllers
 {
@@ -61,25 +62,25 @@ namespace EventYojana.API.Vendor.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("Authenticate")]
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { SwaggerTags.Vendor }, OperationId = nameof(SwaggerOperation.VendorAuthenticate) )]
         //public async Task<IActionResult> AuthenticateUser([ModelBinder(typeof(FromEncryptedBodyAttribute))] AuthenticateRequest authenticateRequestModel)
-        public async Task<IActionResult> AuthenticateUser(AuthenticateRequest authenticateRequestModel)
+        public async Task<IActionResult> AuthenticateUser(string UserName, string Password)
         {
             ValidationException validationException = new ValidationException();
-            validationException.Add(nameof(authenticateRequestModel.UserName), authenticateRequestModel.UserName, ValidationReason.Required);
-            validationException.Add(nameof(authenticateRequestModel.Password), authenticateRequestModel.Password, ValidationReason.Required);
-            validationException.Add(nameof(authenticateRequestModel.UserName), authenticateRequestModel.UserName, ValidationReason.Username);
-            validationException.Add(nameof(authenticateRequestModel.Password), authenticateRequestModel.Password, ValidationReason.PasswordFormat);
+            validationException.Add(nameof(UserName), UserName, ValidationReason.Required);
+            validationException.Add(nameof(Password), Password, ValidationReason.Required);
+            validationException.Add(nameof(UserName), UserName, ValidationReason.Username);
+            validationException.Add(nameof(Password), Password, ValidationReason.PasswordFormat);
             if (validationException.HasErrors)
             {
                 throw validationException;
             }
 
-            var result = await _userService.Authenticate(authenticateRequestModel);
+            var result = await _userService.Authenticate(UserName, Password, (int)UserRoleEnum.Vendor);
 
-            if (result == null)
+            if (result.NoContent)
                 return Unauthorized();
 
             return Ok(result);

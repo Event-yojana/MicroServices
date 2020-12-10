@@ -4,13 +4,19 @@
         <name>EventYojana.API.Admin</name>
     </assembly>
     <members>
+        <member name="M:EventYojana.API.Admin.Controllers.AuthenticateController.AuthenticateUser(System.String,System.String)">
+            <summary>
+            Authenticate vendor user
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:EventYojana.API.Admin.Controllers.VendorController.NotRegisteredVendors">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:EventYojana.API.Admin.Controllers.VendorController.ConfirmRegistration">
+        <member name="M:EventYojana.API.Admin.Controllers.VendorController.ConfirmRegistration(System.Int32)">
             <summary>
             
             </summary>

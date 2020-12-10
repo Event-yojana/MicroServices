@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EventYojana.API.Admin.Constants;
 using EventYojana.API.BusinessLayer.Interfaces.Admin;
+using EventYojana.Infrastructure.Core.ExceptionHandling;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -26,8 +27,8 @@ namespace EventYojana.API.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("GetRegisteredVendors")]
-        [HttpPost]
-        [SwaggerOperation(Tags = new[] { SwaggerTags.Vendor }, OperationId = nameof(SwaggerOperation.RequestForRegister))]
+        [HttpGet]
+        [SwaggerOperation(Tags = new[] { SwaggerTags.Vendor }, OperationId = nameof(SwaggerOperation.ListOfRegisteredVendor))]
         public async Task<IActionResult> NotRegisteredVendors()
         {
             return Ok(await _vendorManager.GetRegisteredVendorsList());
@@ -39,10 +40,18 @@ namespace EventYojana.API.Admin.Controllers
         /// <returns></returns>
         [Route("Confirm")]
         [HttpPost]
-        [SwaggerOperation(Tags = new[] { SwaggerTags.Vendor }, OperationId = nameof(SwaggerOperation.RequestForRegister))]
-        public async Task<IActionResult> ConfirmRegistration()
+        [SwaggerOperation(Tags = new[] { SwaggerTags.Vendor }, OperationId = nameof(SwaggerOperation.ConfirmRegistration))]
+        public async Task<IActionResult> ConfirmRegistration(int vendorId)
         {
-            return Ok();
+            ValidationException validationException = new ValidationException();
+            validationException.Add(nameof(vendorId), vendorId, ValidationReason.GreaterThanZero);
+
+            if (validationException.HasErrors)
+            {
+                throw validationException;
+            }
+
+            return Ok(await _vendorManager.ConfirmRegistration(vendorId));
         }
 
     }

@@ -15,7 +15,8 @@ namespace EventYojana.Infrastructure.Core.ExceptionHandling
         Username,
         PasswordFormat,
         PinCode,
-        PhoneNumber
+        PhoneNumber,
+        GreaterThanZero
     }
 
     [Serializable]
@@ -89,6 +90,13 @@ namespace EventYojana.Infrastructure.Core.ExceptionHandling
                             Regex phoneRegex = new Regex(@"^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$");
                             Match matchPhoneNumber = phoneRegex.Match(error.Item2.ToString());
                             if (!matchPhoneNumber.Success)
+                            {
+                                tempReason.Add(error);
+                                returnVal = true;
+                            }
+                            break;
+                        case ValidationReason.GreaterThanZero:
+                            if (Convert.ToInt32(error.Item2) <= 0)
                             {
                                 tempReason.Add(error);
                                 returnVal = true;
