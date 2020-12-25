@@ -17,12 +17,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.GetUsers">
+            <summary>
+            Authenticate vendor user
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:EventYojana.API.Vendor.Controllers.BaseController">
             <summary>
             Common controller
             </summary>
         </member>
-        <member name="M:EventYojana.API.Vendor.Controllers.BaseController.#ctor">
+        <member name="M:EventYojana.API.Vendor.Controllers.BaseController.#ctor(EventYojana.Infrastructure.Core.Interfaces.IRequestContext)">
             <summary>
             Common constructure
             </summary>

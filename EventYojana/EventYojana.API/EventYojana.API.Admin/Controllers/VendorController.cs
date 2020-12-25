@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EventYojana.API.Admin.Constants;
 using EventYojana.API.BusinessLayer.Interfaces.Admin;
 using EventYojana.Infrastructure.Core.ExceptionHandling;
+using EventYojana.Infrastructure.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,11 +14,11 @@ namespace EventYojana.API.Admin.Controllers
 {
     [Route("api/Admin/[controller]")]
     [ApiController]
-    public class VendorController : ControllerBase
+    public class VendorController : BaseController
     {
         private readonly IVendorManager _vendorManager;
         
-        public VendorController(IVendorManager vendorManager)
+        public VendorController(IRequestContext ctx, IVendorManager vendorManager):base(ctx)
         {
             _vendorManager = vendorManager;
         }

@@ -13,6 +13,7 @@ namespace EventYojana.Infrastructure.Core
             // configure strongly typed settings object
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
             services.AddTransient<IMessageSenderUtility, MessageSenderUtility>();
+            services.AddTransient<IRequestContext, RequestContextAdapter>();
 
             // configure DI for application services
             //services.AddScoped<, > ();

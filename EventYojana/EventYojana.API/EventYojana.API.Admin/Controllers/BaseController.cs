@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EventYojana.API.Vendor.Controllers
+namespace EventYojana.API.Admin.Controllers
 {
     /// <summary>
     /// Common controller

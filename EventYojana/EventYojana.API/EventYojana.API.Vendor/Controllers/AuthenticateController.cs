@@ -3,7 +3,9 @@ using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Vendor;
 using EventYojana.API.BusinessLayer.Interfaces.Commons;
 using EventYojana.API.BusinessLayer.Interfaces.Vendor;
 using EventYojana.API.Vendor.Constants;
+using EventYojana.Infrastructure.Core.Attributes;
 using EventYojana.Infrastructure.Core.ExceptionHandling;
+using EventYojana.Infrastructure.Core.Interfaces;
 using EventYojana.Infrastructure.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +22,7 @@ namespace EventYojana.API.Vendor.Controllers
         private readonly IUserService _userService;
         private readonly IVendorAuthenticationManager _vendorAuthenticationManager;
 
-        public AuthenticateController(IUserService userService, IVendorAuthenticationManager vendorAuthenticationManager)
+        public AuthenticateController(IRequestContext ctx, IUserService userService, IVendorAuthenticationManager vendorAuthenticationManager): base(ctx)
         {
             _userService = userService;
             _vendorAuthenticationManager = vendorAuthenticationManager;
@@ -61,12 +63,11 @@ namespace EventYojana.API.Vendor.Controllers
         /// Authenticate vendor user
         /// </summary>
         /// <returns></returns>
-        [Route("Authenticate")]
+        [Route("Authenticate/{UserName}/{Password}")]
         [HttpGet]
         [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { SwaggerTags.Vendor }, OperationId = nameof(SwaggerOperation.VendorAuthenticate) )]
-        //public async Task<IActionResult> AuthenticateUser([ModelBinder(typeof(FromEncryptedBodyAttribute))] AuthenticateRequest authenticateRequestModel)
-        public async Task<IActionResult> AuthenticateUser(string UserName, string Password)
+        public async Task<IActionResult> AuthenticateUser([ModelBinder(typeof(FromEncryptedRouteAttribute))] string UserName, [ModelBinder(typeof(FromEncryptedRouteAttribute))] string Password)
         {
             ValidationException validationException = new ValidationException();
             validationException.Add(nameof(UserName), UserName, ValidationReason.Required);
@@ -78,12 +79,23 @@ namespace EventYojana.API.Vendor.Controllers
                 throw validationException;
             }
 
-            var result = await _userService.Authenticate(UserName, Password, (int)UserRoleEnum.Vendor);
+            var result = await _userService.Authenticate(UserName, Password, new int[] { (int)UserRoleEnum.Vendor });
 
             if (result.NoContent)
                 return Unauthorized();
 
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Authenticate vendor user
+        /// </summary>
+        /// <returns></returns>
+        [Route("GetUsers")]
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
+        {
+            return Ok(this.LogOnUserId);
         }
 
     }

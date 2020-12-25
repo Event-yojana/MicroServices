@@ -4,11 +4,15 @@
         <name>EventYojana.API.Admin</name>
     </assembly>
     <members>
-        <member name="M:EventYojana.API.Admin.Controllers.AuthenticateController.AuthenticateUser(System.String,System.String)">
+        <member name="T:EventYojana.API.Admin.Controllers.BaseController">
             <summary>
-            Authenticate vendor user
+            Common controller
             </summary>
-            <returns></returns>
+        </member>
+        <member name="M:EventYojana.API.Admin.Controllers.BaseController.#ctor(EventYojana.Infrastructure.Core.Interfaces.IRequestContext)">
+            <summary>
+            Common constructure
+            </summary>
         </member>
         <member name="M:EventYojana.API.Admin.Controllers.VendorController.NotRegisteredVendors">
             <summary>

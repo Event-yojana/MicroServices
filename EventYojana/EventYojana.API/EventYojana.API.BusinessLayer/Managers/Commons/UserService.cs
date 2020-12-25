@@ -8,7 +8,9 @@ using EventYojana.Infrastructure.Core.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,18 +28,17 @@ namespace EventYojana.API.BusinessLayer.Managers.Commons
             _appSettings = options.Value;
             _authenticateRepository = authenticateRepository;
         }
-        public async Task<GetResponseModel> Authenticate(string UserName, string Password, int UserType)
+        public async Task<GetResponseModel> Authenticate(string UserName, string Password, int[] UserType)
         {
             GetResponseModel getResponseModel = new GetResponseModel();
 
-            var userDetails = await _authenticateRepository.GetUserDetails(x => x.Username == UserName && x.UserType == (int)UserType);
+            var userDetails = await _authenticateRepository.GetUserDetails(x => x.Username == UserName && UserType.Contains(x.UserType));
 
-            if (userDetails == null)
+            if (userDetails == null && userDetails.Password != AuthenticateUtility.GeneratePassword(Password, userDetails.PasswordSalt))
             {
                 getResponseModel.NoContent = true;
             }
-
-            if(userDetails.Password == AuthenticateUtility.GeneratePassword(Password, userDetails.PasswordSalt))
+            else
             {
                 var token = GenerateJwtToken(userDetails);
 
@@ -55,14 +56,23 @@ namespace EventYojana.API.BusinessLayer.Managers.Commons
         {
             // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[] { new Claim("ID", EncryptDcryptData.EncryptString(user.LoginId.ToString())), new Claim("USERTYPE", EncryptDcryptData.EncryptString(user.UserType.ToString())) }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            var authClaims = new List<Claim>
+                {
+                    new Claim("id", user.LoginId.ToString()),
+                    new Claim("role", user.UserType.ToString()),
+                };
+
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.Secret));
+
+            var token = new JwtSecurityToken(
+                    issuer: _appSettings.ValidIssuer,
+                    audience: _appSettings.ValidAudience,
+                    expires: DateTime.Now.AddHours(3),
+                    claims: authClaims,
+                    signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                    );
+
             return tokenHandler.WriteToken(token);
         }
     }

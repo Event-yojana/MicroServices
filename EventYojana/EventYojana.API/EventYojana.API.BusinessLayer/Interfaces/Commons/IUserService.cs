@@ -6,7 +6,7 @@ namespace EventYojana.API.BusinessLayer.Interfaces.Commons
 {
     public interface IUserService
     {
-        Task<GetResponseModel> Authenticate(string UserName, string Password, int UserType);
+        Task<GetResponseModel> Authenticate(string UserName, string Password, int[] UserType);
 
     }
 }
