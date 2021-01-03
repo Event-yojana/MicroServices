@@ -7,7 +7,7 @@ using EventYojana.API.DataAccess.Interfaces.Common;
 using EventYojana.API.DataAccess.Interfaces.Vendor;
 using EventYojana.Infrastructure.Core.Interfaces;
 using System.Threading.Tasks;
-using static EventYojana.Infrastructure.Core.Enum.SecurityEnum;
+using static EventYojana.Infrastructure.Core.Enum.ApplicationEnum;
 
 namespace EventYojana.API.BusinessLayer.Managers.Vendor
 {
@@ -33,18 +33,14 @@ namespace EventYojana.API.BusinessLayer.Managers.Vendor
             {
                 VendorName = vendorDetailsRequestModel.VendorName,
                 VendorEmail = vendorDetailsRequestModel.VendorEmail,
-                //UserType = (int)UserRoleEnum.Vendor.GetTypeCode(),
                 VendorMobile = vendorDetailsRequestModel.VendorMobile,
                 VendorLandline = vendorDetailsRequestModel.VendorLandline,
                 AddressLine = vendorDetailsRequestModel.AddressLine,
                 City = vendorDetailsRequestModel.City,
                 State = vendorDetailsRequestModel.State,
                 PinCode = vendorDetailsRequestModel.PinCode
-
-                //PasswordSalt = AuthenticateUtility.CreatePasswordSalt()
             };
 
-            //registerUser.Password = AuthenticateUtility.GeneratePassword(vendorDetailsRequestModel.Password, registerUser.PasswordSalt);
             var registerVendorResponse = await _vendorAuthenticationRepository.RegisterVendor(registerUser);
 
             postResponseModel.IsAlreadyExists = registerVendorResponse.IsUserExists;
@@ -66,7 +62,7 @@ namespace EventYojana.API.BusinessLayer.Managers.Vendor
                     Body = emailBody,
                     IsProduction = emailResponse.IsProductionEnvironment,
                     IsSend = emailResponse.IsEmailSend,
-                    ApplicationId = 1,
+                    ApplicationId = (int)Application.Vendor,
                     FromUserType = "System",
                     ToUserType = "Vendor",
                     ToUserId = registerVendorResponse.Content.VendorId

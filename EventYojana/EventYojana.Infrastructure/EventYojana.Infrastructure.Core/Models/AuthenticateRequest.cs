@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static EventYojana.Infrastructure.Core.Enum.SecurityEnum;
+using static EventYojana.Infrastructure.Core.Enum.ApplicationEnum;
 
 namespace EventYojana.Infrastructure.Core.Models
 {

@@ -153,7 +153,6 @@ namespace EventYojana.API.Vendor
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseMiddleware<JwtMiddleware>();
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.UseSwagger(c => {

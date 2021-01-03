@@ -4,6 +4,14 @@
         <name>EventYojana.API.Admin</name>
     </assembly>
     <members>
+        <member name="M:EventYojana.API.Admin.Controllers.AuthenticateController.AuthenticateUser(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="UserName"></param>
+            <param name="Password"></param>
+            <returns></returns>
+        </member>
         <member name="T:EventYojana.API.Admin.Controllers.BaseController">
             <summary>
             Common controller

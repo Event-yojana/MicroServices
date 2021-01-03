@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static EventYojana.Infrastructure.Core.Enum.ApplicationEnum;
 
 namespace EventYojana.API.BusinessLayer.Managers.Admin
 {
@@ -45,7 +46,7 @@ namespace EventYojana.API.BusinessLayer.Managers.Admin
             PostResponseModel postResponseModel = new PostResponseModel();
 
             var passwordSalt = AuthenticateUtility.CreatePasswordSalt();
-            var password = AuthenticateUtility.GetRandomAlphanumericString(8);
+            var password = AuthenticateUtility.GetRandomAlphanumericString(12);
             var encryptedPassword = AuthenticateUtility.GeneratePassword(password, passwordSalt);
 
             var registerVendorResponse = await _vendorRepository.ConfirmRegistration(vendorId, encryptedPassword, passwordSalt);
@@ -68,10 +69,11 @@ namespace EventYojana.API.BusinessLayer.Managers.Admin
                     Body = emailBody,
                     IsProduction = emailResponse.IsProductionEnvironment,
                     IsSend = emailResponse.IsEmailSend,
-                    ApplicationId = 1,
+                    ApplicationId = (int)Application.Admin,
                     FromUserType = "System",
                     ToUserType = "Vendor",
-                    ToUserId = registerVendorResponse.Content.VendorId
+                    ToUserId = registerVendorResponse.Content.VendorId,
+                    CreatedDate = DateTime.Now
                 };
 
                 await _loggingRepository.LogEmailTransaction(emailLogDetails);

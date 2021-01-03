@@ -20,6 +20,7 @@ namespace EventYojana.API.DataAccess.Repositories.Common
         public async Task LogEmailTransaction(EmailLogs emailLogDetails)
         {
             await _databaseContext.Repository<EmailLogs>().AddAsync(emailLogDetails);
+            _databaseContext.Commit();
         }
     }
 }

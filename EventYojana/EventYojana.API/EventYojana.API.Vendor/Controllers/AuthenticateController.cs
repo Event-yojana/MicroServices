@@ -3,18 +3,15 @@ using EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Vendor;
 using EventYojana.API.BusinessLayer.Interfaces.Commons;
 using EventYojana.API.BusinessLayer.Interfaces.Vendor;
 using EventYojana.API.Vendor.Constants;
-using EventYojana.Infrastructure.Core.Attributes;
 using EventYojana.Infrastructure.Core.ExceptionHandling;
 using EventYojana.Infrastructure.Core.Interfaces;
-using EventYojana.Infrastructure.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using static EventYojana.Infrastructure.Core.Enum.SecurityEnum;
+using static EventYojana.Infrastructure.Core.Enum.ApplicationEnum;
 
 namespace EventYojana.API.Vendor.Controllers
 {
-
     [Route("api/Vendor/[controller]")]
     [ApiController]
     public class AuthenticateController : BaseController
@@ -29,7 +26,7 @@ namespace EventYojana.API.Vendor.Controllers
         }
 
         /// <summary>
-        /// Register vendor user
+        /// 
         /// </summary>
         /// <param name="vendorDetailsRequestModel"></param>
         /// <returns></returns>
@@ -60,14 +57,14 @@ namespace EventYojana.API.Vendor.Controllers
         }
 
         /// <summary>
-        /// Authenticate vendor user
+        /// 
         /// </summary>
         /// <returns></returns>
-        [Route("Authenticate/{UserName}/{Password}")]
+        [Route("Authenticate")]
         [HttpGet]
         [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { SwaggerTags.Vendor }, OperationId = nameof(SwaggerOperation.VendorAuthenticate) )]
-        public async Task<IActionResult> AuthenticateUser([ModelBinder(typeof(FromEncryptedRouteAttribute))] string UserName, [ModelBinder(typeof(FromEncryptedRouteAttribute))] string Password)
+        public async Task<IActionResult> AuthenticateUser(string UserName, string Password)
         {
             ValidationException validationException = new ValidationException();
             validationException.Add(nameof(UserName), UserName, ValidationReason.Required);
@@ -85,17 +82,6 @@ namespace EventYojana.API.Vendor.Controllers
                 return Unauthorized();
 
             return Ok(result);
-        }
-
-        /// <summary>
-        /// Authenticate vendor user
-        /// </summary>
-        /// <returns></returns>
-        [Route("GetUsers")]
-        [HttpGet]
-        public async Task<IActionResult> GetUsers()
-        {
-            return Ok(this.LogOnUserId);
         }
 
     }

@@ -19,6 +19,8 @@ namespace EventYojana.API.DataAccess.DataEntities
 
         }
 
+        public virtual DbSet<EmailLogs> EmailLogs { get; set; }
+        public virtual DbSet<UserLogin> UserLogin { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             IConfigurationRoot baseConfig = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile("appsettings.json").Build();

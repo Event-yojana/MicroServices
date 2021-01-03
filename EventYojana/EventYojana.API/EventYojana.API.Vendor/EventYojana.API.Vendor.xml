@@ -6,20 +6,14 @@
     <members>
         <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.RegisterVendor(EventYojana.API.BusinessLayer.BusinessEntities.RequestModels.Vendor.RegisterVendorRequestModel)">
             <summary>
-            Register vendor user
+            
             </summary>
             <param name="vendorDetailsRequestModel"></param>
             <returns></returns>
         </member>
         <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.AuthenticateUser(System.String,System.String)">
             <summary>
-            Authenticate vendor user
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:EventYojana.API.Vendor.Controllers.AuthenticateController.GetUsers">
-            <summary>
-            Authenticate vendor user
+            
             </summary>
             <returns></returns>
         </member>

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using EventYojana.API.Admin.Constants;
 using EventYojana.API.BusinessLayer.Interfaces.Commons;
 using EventYojana.Infrastructure.Core.ExceptionHandling;
 using EventYojana.Infrastructure.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using static EventYojana.Infrastructure.Core.Enum.SecurityEnum;
+using static EventYojana.Infrastructure.Core.Enum.ApplicationEnum;
 
 namespace EventYojana.API.Admin.Controllers
 {
@@ -19,11 +15,18 @@ namespace EventYojana.API.Admin.Controllers
     public class AuthenticateController : BaseController
     {
         private readonly IUserService _userService;
+
         public AuthenticateController(IRequestContext ctx, IUserService userService):base(ctx)
         {
             _userService = userService;
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="UserName"></param>
+        /// <param name="Password"></param>
+        /// <returns></returns>
         [Route("Authenticate")]
         [HttpGet]
         [AllowAnonymous]

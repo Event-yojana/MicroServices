@@ -4,14 +4,25 @@ using System.Text;
 
 namespace EventYojana.Infrastructure.Core.Enum
 {
-    public static class SecurityEnum
+    public static class ApplicationEnum
     {
-        public enum ActionType
+        public enum Application
+        {
+            Admin = 1,
+            Vendor = 2,
+            Customer = 3
+        }
+        public enum ModuleActionType
         {
             Add,
             Edit,
             View,
             Delete
+        }
+
+        public enum ModuleName
+        {
+            VendorRequestedRegistration = 1
         }
 
         public enum UserRoleEnum
