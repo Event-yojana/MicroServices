@@ -11,7 +11,10 @@
     [FromUserId]       INT            NULL,
     [ToUserType]       NVARCHAR (25)  NOT NULL,
     [ToUserId]         INT            NULL,
-    [CreatedDate]      DATETIME       NOT NULL,
-    CONSTRAINT [PK_EmailLogs] PRIMARY KEY CLUSTERED ([EmailLogId] ASC)
+    [CreatedDate]      DATETIME       CONSTRAINT [df_CreatedDate] DEFAULT (getdate()) NOT NULL,
+    CONSTRAINT [PK_EmailLogs] PRIMARY KEY CLUSTERED ([EmailLogId] ASC),
+    CONSTRAINT [FK_EmailLogs_Application] FOREIGN KEY ([ApplicationId]) REFERENCES [dbo].[Application] ([Id])
 );
+
+
 

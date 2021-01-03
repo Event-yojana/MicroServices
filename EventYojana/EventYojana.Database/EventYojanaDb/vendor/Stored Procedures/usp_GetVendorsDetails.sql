@@ -1,23 +1,41 @@
 ﻿
-CREATE PROCEDURE vendor.usp_GetVendorsDetails
+CREATE PROCEDURE [vendor].[usp_GetVendorsDetails]
 (
 	@HaveLogIn BIT
 )
 AS 
 BEGIN
 
-	SELECT [VendorId]
-      ,[LoginId]
-      ,[VendorName]
-      ,[VendorEmail]
-      ,[IsBranch]
-      ,[Mobile]
-      ,[Landline]
-      ,VD.[AddressId]
-	  ,ISNULL([AddressLine], '') + ' ' + ISNULL([City], '') + ' ' + ISNULL([State], '') + ' ' + ISNULL([PinCode], '') AS FullAddress
-      ,[IsLoginByVendor]
-  FROM [vendor].[VendorDetails] VD
-  INNER JOIN [dbo].[Address] AD ON VD.[AddressId] = AD.[AddressId]
-  WHERE [LoginId] = (CASE WHEN @HaveLogIn = 0 THEN NULL ELSE [LoginId] END)
+	IF(@HaveLogIn = 0)
+	BEGIN
+		SELECT [VendorId]
+			  ,[LoginId]
+			  ,[VendorName]
+			  ,[VendorEmail]
+			  ,[IsBranch]
+			  ,[Mobile]
+			  ,[Landline]
+			  ,VD.[AddressId]
+			  ,ISNULL([AddressLine], '') + ' ' + ISNULL([City], '') + ' ' + ISNULL([State], '') + ' ' + ISNULL(CONVERT(VARCHAR(10),[PinCode]), '') AS FullAddress
+			  ,[IsLoginByVendor]
+		  FROM [vendor].[VendorDetails] VD
+		  INNER JOIN [dbo].[Address] AD ON VD.[AddressId] = AD.[AddressId]
+		  WHERE [LoginId] IS NULL
+	END
+	ELSE
+	BEGIN
+		SELECT [VendorId]
+			  ,[LoginId]
+			  ,[VendorName]
+			  ,[VendorEmail]
+			  ,[IsBranch]
+			  ,[Mobile]
+			  ,[Landline]
+			  ,VD.[AddressId]
+			  ,ISNULL([AddressLine], '') + ' ' + ISNULL([City], '') + ' ' + ISNULL([State], '') + ' ' + ISNULL(CONVERT(VARCHAR(10),[PinCode]), '') AS FullAddress
+			  ,[IsLoginByVendor]
+		  FROM [vendor].[VendorDetails] VD
+		  INNER JOIN [dbo].[Address] AD ON VD.[AddressId] = AD.[AddressId]
+	END
 
 END

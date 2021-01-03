@@ -11,14 +11,15 @@ CREATE PROCEDURE [vendor].[usp_RegisterVendor]
 	@State NVARCHAR(50),
 	@PinCode INT,
 	@IsUserExists bit OUTPUT,
-	@Success bit OUTPUT,
-	@VendorId INT OUTPUT
+	@Success bit OUTPUT
 )
 AS
 BEGIN
 	
 	BEGIN TRANSACTION
 	BEGIN TRY
+
+		DECLARE @VendorId INT;
 
 		IF NOT EXISTS(SELECT VendorId FROM [vendor].[VendorDetails] WHERE [VendorEmail] = @VendorEmail)
 		BEGIN
@@ -65,6 +66,8 @@ BEGIN
 
 		SET @Success = 1;
 
+		SELECT VendorId, VendorName, VendorEmail, Mobile, Landline FROM [vendor].[VendorDetails] WHERE VendorId = @VendorId
+
 		COMMIT TRANSACTION
 
 	END TRY
@@ -72,7 +75,7 @@ BEGIN
 
 	  SET @Success = 0;
 
-      ROLLBACK TRANSACTION [Tran1]
+      ROLLBACK TRANSACTION
 
 	END CATCH
 
