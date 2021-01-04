@@ -11,3 +11,14 @@
 /EventYojana/EventYojana.API.DataAccess/obj
 /EventYojana/EventYojana.Infrastructure/EventYojana.Infrastructure.Core/obj
 /EventYojana/EventYojana.Infrastructure/EventYojana.Infrastructure.Repository/obj
+/.vs
+/EventYojana/.vs/EventYojana
+/EventYojana/EventYojana.API/EventYojana.API.Admin/bin/Debug/netcoreapp3.1
+/EventYojana/EventYojana.API/EventYojana.API.Admin/obj
+/EventYojana/EventYojana.API/EventYojana.API.BusinessLayer/bin/Debug/netstandard2.0
+/EventYojana/EventYojana.API/EventYojana.API.DataAccess/bin/Debug/netstandard2.0
+/EventYojana/EventYojana.API/EventYojana.API.Vendor/bin/Debug/netcoreapp3.1
+/EventYojana/EventYojana.Database/EventYojanaDb/bin/Debug
+/EventYojana/EventYojana.Database/EventYojanaDb/obj/Debug
+/EventYojana/EventYojana.Infrastructure/EventYojana.Infrastructure.Core/bin/Debug/netstandard2.0
+/EventYojana/EventYojana.Infrastructure/EventYojana.Infrastructure.Repository/bin/Debug/netstandard2.0
