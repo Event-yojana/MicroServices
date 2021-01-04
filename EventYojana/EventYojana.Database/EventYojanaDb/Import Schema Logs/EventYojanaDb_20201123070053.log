@@ -1,0 +1,86 @@
+11/24/2020 12:30:53 AM	This log contains information about the import schema operation into project 'EventYojanaDb' on computer 'BHAVNA-PC' by user 'BHAVNA'.
+11/24/2020 12:30:54 AM	Import of database schema has started.
+11/24/2020 12:31:13 AM	Gathering database credentials
+11/24/2020 12:31:13 AM	Gathering database options
+11/24/2020 12:31:13 AM	Gathering generic database scoped configuration option
+11/24/2020 12:31:13 AM	Gathering users
+11/24/2020 12:31:13 AM	Gathering roles
+11/24/2020 12:31:13 AM	Gathering application roles
+11/24/2020 12:31:13 AM	Gathering role memberships
+11/24/2020 12:31:13 AM	Gathering filegroups
+11/24/2020 12:31:13 AM	Gathering full-text catalogs
+11/24/2020 12:31:13 AM	Gathering assemblies
+11/24/2020 12:31:13 AM	Gathering certificates
+11/24/2020 12:31:13 AM	Gathering asymmetric keys
+11/24/2020 12:31:13 AM	Gathering symmetric keys
+11/24/2020 12:31:13 AM	Gathering encrypted symmetric keys
+11/24/2020 12:31:13 AM	Gathering schemas
+11/24/2020 12:31:13 AM	Gathering XML schema collections
+11/24/2020 12:31:13 AM	Gathering user-defined data types
+11/24/2020 12:31:13 AM	Gathering user-defined types
+11/24/2020 12:31:13 AM	Gathering table types
+11/24/2020 12:31:13 AM	Gathering unique keys for table types
+11/24/2020 12:31:13 AM	Gathering primary keys for table types
+11/24/2020 12:31:13 AM	Gathering indexes for table types
+11/24/2020 12:31:13 AM	Gathering check constraints for table types
+11/24/2020 12:31:13 AM	Gathering default constraints for table types
+11/24/2020 12:31:13 AM	Gathering partition functions
+11/24/2020 12:31:13 AM	Gathering partition schemes
+11/24/2020 12:31:13 AM	Gathering functions
+11/24/2020 12:31:13 AM	Gathering encrypted functions
+11/24/2020 12:31:13 AM	Gathering aggregates
+11/24/2020 12:31:13 AM	Gathering procedures
+11/24/2020 12:31:13 AM	Gathering encrypted procedures
+11/24/2020 12:31:14 AM	Gathering tables
+11/24/2020 12:31:14 AM	Gathering primary keys
+11/24/2020 12:31:14 AM	Gathering unique constraints
+11/24/2020 12:31:14 AM	Gathering foreign keys
+11/24/2020 12:31:14 AM	Gathering default constraints
+11/24/2020 12:31:14 AM	Gathering check constraints
+11/24/2020 12:31:14 AM	Gathering views
+11/24/2020 12:31:14 AM	Gathering encrypted views
+11/24/2020 12:31:14 AM	Gathering indexes
+11/24/2020 12:31:14 AM	Gathering statistics
+11/24/2020 12:31:14 AM	Gathering full-text index stoplists
+11/24/2020 12:31:14 AM	Gathering search property lists
+11/24/2020 12:31:14 AM	Gathering search properties
+11/24/2020 12:31:14 AM	Gathering full-text indexes
+11/24/2020 12:31:14 AM	Gathering column store indexes
+11/24/2020 12:31:14 AM	Gathering spatial indexes
+11/24/2020 12:31:14 AM	Gathering XML indexes
+11/24/2020 12:31:14 AM	Gathering Selective XML indexes
+11/24/2020 12:31:14 AM	Gathering encrypted triggers
+11/24/2020 12:31:14 AM	Gathering triggers
+11/24/2020 12:31:14 AM	Gathering encrypted and clr ddl triggers
+11/24/2020 12:31:14 AM	Gathering ddl triggers
+11/24/2020 12:31:14 AM	Gathering synonyms
+11/24/2020 12:31:14 AM	Gathering defaults
+11/24/2020 12:31:14 AM	Gathering data constraint uddt bindings
+11/24/2020 12:31:14 AM	Gathering rules
+11/24/2020 12:31:14 AM	Gathering data constraint uddt bindings
+11/24/2020 12:31:14 AM	Gathering message types
+11/24/2020 12:31:14 AM	Gathering queues
+11/24/2020 12:31:14 AM	Gathering contracts
+11/24/2020 12:31:14 AM	Gathering services
+11/24/2020 12:31:14 AM	Gathering event notifications
+11/24/2020 12:31:14 AM	Gathering remote service bindings
+11/24/2020 12:31:14 AM	Gathering broker priorities
+11/24/2020 12:31:14 AM	Gathering signatures
+11/24/2020 12:31:14 AM	Gathering data compression options
+11/24/2020 12:31:14 AM	Gathering sequence types
+11/24/2020 12:31:14 AM	Gathering security policies
+11/24/2020 12:31:14 AM	Gather column encryption keys
+11/24/2020 12:31:14 AM	Gathering column master keys
+11/24/2020 12:31:14 AM	Gathering external data sources
+11/24/2020 12:31:15 AM	Gathering external file formats
+11/24/2020 12:31:15 AM	Gathering external tables
+11/24/2020 12:31:15 AM	Gathering database permissions
+11/24/2020 12:31:15 AM	Gathering extended properties
+11/24/2020 12:31:15 AM	Gathering credentials
+11/24/2020 12:31:15 AM	Gathering logins
+11/24/2020 12:31:15 AM	Gathering server audits
+11/24/2020 12:31:17 AM	Scanning project for duplicate elements
+11/24/2020 12:31:18 AM	Finished duplicate element processing
+11/24/2020 12:31:20 AM	Finished importing database.
+11/24/2020 12:31:20 AM	A summary of the import was saved to the following location: D:\EventManagement\MicroServices\EventYojana\EventYojana.Database\EventYojanaDb\Import Schema Logs\EventYojanaDb_20201123070053.log
+11/24/2020 12:31:20 AM	Click Finish to continue...
