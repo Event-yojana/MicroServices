@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using EventYojana.API.Admin.Constants;
 using EventYojana.API.BusinessLayer.Interfaces.Commons;
+using EventYojana.Infrastructure.Core.Attributes;
 using EventYojana.Infrastructure.Core.ExceptionHandling;
 using EventYojana.Infrastructure.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -27,12 +28,11 @@ namespace EventYojana.API.Admin.Controllers
         /// <param name="UserName"></param>
         /// <param name="Password"></param>
         /// <returns></returns>
-        [Route("Authenticate")]
+        [Route("Authenticate/{UserName}/{Password}")]
         [HttpGet]
         [AllowAnonymous]
         [SwaggerOperation(Tags = new[] { SwaggerTags.Admin }, OperationId = nameof(SwaggerOperation.AuthenticateAdmin))]
-        //public async Task<IActionResult> AuthenticateUser([ModelBinder(typeof(FromEncryptedBodyAttribute))] AuthenticateRequest authenticateRequestModel)
-        public async Task<IActionResult> AuthenticateUser(string UserName, string Password)
+        public async Task<IActionResult> AuthenticateUser([ModelBinder(typeof(FromEncryptedRouteAttribute))] string UserName, [ModelBinder(typeof(FromEncryptedRouteAttribute))] string Password)
         {
             ValidationException validationException = new ValidationException();
             validationException.Add(nameof(UserName), UserName, ValidationReason.Required);
