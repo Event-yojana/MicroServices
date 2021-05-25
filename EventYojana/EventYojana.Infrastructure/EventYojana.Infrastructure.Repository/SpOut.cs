@@ -8,7 +8,7 @@ namespace EventYojana.Infrastructure.Repository
 {
     public class SpOut
     {
-        public DataTable Data { get; set; }
+        public System.Data.DataTable Data { get; set; }
         public SqlParameter[] OutParam { get; set; }
     }
 

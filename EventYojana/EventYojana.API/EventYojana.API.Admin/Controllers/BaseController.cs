@@ -24,5 +24,6 @@ namespace EventYojana.API.Admin.Controllers
         {
             this.LogOnUserDetails = ctx.LogOnUserDetails;
         }
+
     }
 }
