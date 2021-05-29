@@ -37,7 +37,7 @@ namespace EventYojana.API.BusinessLayer.Managers.Admin
                 VendorEmail = x.VendorEmail,
                 Mobile = x.Mobile,
                 Landline = x.Landline,
-                Address = x.FullAddress
+                Address = x.Address.AddressLine + " " + x.Address.City + " " + x.Address.State + " " + x.Address.PinCode
             }).ToList();
         }
     
@@ -69,7 +69,7 @@ namespace EventYojana.API.BusinessLayer.Managers.Admin
                     Body = emailBody,
                     IsProduction = emailResponse.IsProductionEnvironment,
                     IsSend = emailResponse.IsEmailSend,
-                    ApplicationId = (int)Application.Admin,
+                    ApplicationId = (int)ApplicationType.Admin,
                     FromUserType = "System",
                     ToUserType = "Vendor",
                     ToUserId = registerVendorResponse.Content.VendorId,

@@ -6,7 +6,7 @@ namespace EventYojana.Infrastructure.Core.Enum
 {
     public static class ApplicationEnum
     {
-        public enum Application
+        public enum ApplicationType
         {
             Admin = 1,
             Vendor = 2,

@@ -21,7 +21,7 @@ namespace EventYojana.API.DataAccess
             var setingService = sp.GetService<IConfiguration>();
             string DbConnectionString = setingService.GetValue<string>("EventYojanaDb");
             serviceCollection.AddDbContext<EventYojanaContext>(options => options.UseSqlServer(DbConnectionString), ServiceLifetime.Transient);
-            //serviceCollection.AddDbContext<EventYojanaContext>(options => options.UseSqlServer("data source=BHAVNA-PC\\BHAVNASQL;initial catalog=EventYojana;persist security info=True;user id=sa;password=Password12@;"), ServiceLifetime.Transient);
+            //serviceCollection.AddDbContext<EventYojanaContext>(options => options.UseSqlServer("data source=BHAVNA-PC\\BHAVNASQL;initial catalog=Event-Yojana-Management;persist security info=True;user id=sa;password=Password12@;"), ServiceLifetime.Transient);
 
             serviceCollection.AddScoped<IDatabaseContext, DatabaseContext>();
             serviceCollection.AddTransient<IAuthenticateRepository, AuthenticateRepository>();

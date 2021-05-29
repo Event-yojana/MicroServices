@@ -1,4 +1,5 @@
 ﻿using EventYojana.API.DataAccess.DataEntities.Common;
+using EventYojana.API.DataAccess.DataEntities.Vendor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -36,6 +37,9 @@ namespace EventYojana.API.DataAccess.DataEntities
             modelBuilder.Entity<Address>().HasKey(x => x.AddressId);
             modelBuilder.Entity<UserLogin>().HasKey(x => x.LoginId);
             modelBuilder.Entity<EmailLogs>().HasKey(x => x.EmailLogId);
+            modelBuilder.Entity<Module>().HasKey(x => x.Id);
+            modelBuilder.Entity<RoleModule>().HasKey(x => x.Id);
+            modelBuilder.Entity<VendorDetails>().HasKey(x => x.VendorId);
         }
     }
 }

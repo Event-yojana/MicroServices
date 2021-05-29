@@ -62,7 +62,7 @@ namespace EventYojana.API.BusinessLayer.Managers.Vendor
                     Body = emailBody,
                     IsProduction = emailResponse.IsProductionEnvironment,
                     IsSend = emailResponse.IsEmailSend,
-                    ApplicationId = (int)Application.Vendor,
+                    ApplicationId = (int)ApplicationType.Vendor,
                     FromUserType = "System",
                     ToUserType = "Vendor",
                     ToUserId = registerVendorResponse.Content.VendorId
